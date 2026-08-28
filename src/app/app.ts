@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { Countdown } from './countdown/countdown';
 import { Birthday } from './birthday/birthday';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,7 @@ import { Birthday } from './birthday/birthday';
   styleUrl: './app.css',
 })
 export class App {
-  readonly targetDate = new Date('2026-08-10T00:00:00+07:00');
-  // readonly targetDate = new Date('2026-09-10T00:00:00+07:00');
+  readonly targetDate = environment.targetDate;
 
   isBirthday = Date.now() >= this.targetDate.getTime();
 
