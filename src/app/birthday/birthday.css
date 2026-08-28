@@ -1,0 +1,182 @@
+/* ========================================
+   ROOT
+======================================== */
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ========================================
+   SCROLLBAR
+======================================== */
+
+:host ::-webkit-scrollbar {
+  width: 4px;
+}
+
+:host ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+:host ::-webkit-scrollbar-thumb {
+  background: rgba(236, 72, 153, 0.35);
+  border-radius: 20px;
+}
+
+/* ========================================
+   CONFETTI
+======================================== */
+
+.confetti {
+  position: absolute;
+
+  top: -50px;
+
+  font-size: 24px;
+
+  animation: confettiFall 4s linear infinite;
+
+  pointer-events: none;
+
+  z-index: 5;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-50px) rotate(0deg);
+
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(950px) rotate(360deg);
+
+    opacity: 0;
+  }
+}
+
+/* ========================================
+   TRÁI TIM
+======================================== */
+
+.heart {
+  position: absolute;
+
+  bottom: -50px;
+
+  pointer-events: none;
+
+  z-index: 4;
+
+  animation: heartFloat 5s ease-in infinite;
+
+  opacity: 0;
+}
+
+@keyframes heartFloat {
+  0% {
+    transform: translateY(0) scale(0.6) rotate(0deg);
+
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.9;
+  }
+
+  50% {
+    transform: translateY(-450px) scale(1) rotate(15deg);
+
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateY(-900px) scale(1.2) rotate(-15deg);
+
+    opacity: 0;
+  }
+}
+
+/* ========================================
+   ẢNH KỶ NIỆM
+======================================== */
+
+:host img {
+  display: block;
+  max-width: 100%;
+}
+
+:host img:hover {
+  transform: scale(1.03);
+}
+
+/* ========================================
+   NÚT
+======================================== */
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible {
+  outline: 3px solid rgba(236, 72, 153, 0.4);
+  outline-offset: 4px;
+}
+
+/* ========================================
+   ANIMATION MỞ QUÀ
+======================================== */
+
+@keyframes giftOpen {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ========================================
+   MOBILE FONT
+======================================== */
+
+@media (max-width: 390px) {
+  :host h1 {
+    line-height: 1.15;
+  }
+
+  :host h2 {
+    line-height: 1.2;
+  }
+}
+
+/* ========================================
+   REDUCED MOTION
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  :host *,
+  :host *::before,
+  :host *::after {
+    animation-duration: 0.01ms !important;
+
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 0.01ms !important;
+  }
+}
