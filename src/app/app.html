@@ -1,0 +1,221 @@
+<!-- Nhạc nền -->
+<audio #backgroundMusic src="music/birthday.mp3" loop></audio>
+
+<!-- Hiệu ứng flash -->
+@if (isCelebrating) {
+  <div class="fixed inset-0 z-50 bg-white animate-ping pointer-events-none"></div>
+}
+
+<div
+  class="min-h-screen overflow-hidden flex items-center justify-center bg-gradient-to-br from-pink-100 via-white to-purple-100"
+>
+  <!-- ========================= -->
+  <!-- MỞ QUÀ -->
+  <!-- ========================= -->
+
+  @if (!isOpened) {
+    <div class="text-center px-6">
+      <!-- Hộp quà -->
+
+      <button (click)="openGift()" class="group relative mx-auto block" aria-label="Mở món quà">
+        <!-- Nắp -->
+
+        <div
+          class="relative z-20 w-48 h-16 mx-auto bg-pink-500 rounded-xl shadow-xl transition-all duration-500 group-hover:-translate-y-3 group-hover:rotate-2"
+        >
+          <div class="absolute left-1/2 -translate-x-1/2 top-0 w-8 h-full bg-yellow-300"></div>
+        </div>
+
+        <!-- Thân hộp -->
+
+        <div
+          class="relative w-40 h-40 mx-auto bg-pink-600 rounded-b-2xl shadow-2xl transition-all duration-500 group-hover:scale-105"
+        >
+          <div class="absolute left-1/2 -translate-x-1/2 top-0 w-8 h-full bg-yellow-300"></div>
+        </div>
+
+        <!-- Nơ -->
+
+        <div
+          class="absolute -top-10 left-1/2 -translate-x-1/2 z-30 text-6xl transition-transform duration-500 group-hover:scale-110"
+        >
+          🎀
+        </div>
+      </button>
+
+      <h1 class="mt-12 text-3xl md:text-5xl font-bold text-pink-600">
+        Có một món quà dành cho bạn...
+      </h1>
+
+      <p class="mt-4 text-gray-500 text-lg">Bấm vào hộp quà nhé 💗</p>
+    </div>
+  }
+
+  <!-- ========================= -->
+  <!-- SAU KHI MỞ QUÀ -->
+  <!-- ========================= -->
+
+  @else {
+    <!-- Nút nhạc -->
+
+    <button
+      (click)="toggleMusic()"
+      class="fixed top-5 right-5 z-50 w-12 h-12 rounded-full bg-white/80 backdrop-blur shadow-lg flex items-center justify-center text-xl hover:scale-110 transition"
+      aria-label="Bật hoặc tắt nhạc"
+    >
+      {{ isMusicPlaying ? '🔊' : '🔇' }}
+    </button>
+
+    <!-- Confetti -->
+
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+      @for (piece of hearts; track $index) {
+        <div
+          class="confetti"
+          [style.left.%]="($index * 37) % 100"
+          [style.animation-delay.s]="$index * 0.08"
+        >
+          {{ $index % 2 === 0 ? '🎉' : '✨' }}
+        </div>
+      }
+    </div>
+
+    <!-- Trái tim -->
+
+    @for (heart of hearts; track $index) {
+      <div
+        class="heart text-3xl"
+        [style.left.%]="($index * 47) % 100"
+        [style.animation-delay.s]="$index * 0.25"
+      >
+        ❤️
+      </div>
+    }
+
+    <!-- ========================= -->
+    <!-- NỘI DUNG -->
+    <!-- ========================= -->
+
+    <div class="relative z-10 min-h-screen w-full flex items-center justify-center px-6 py-12">
+      <div
+        class="w-full max-w-2xl bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl p-8 md:p-12 text-center"
+      >
+        <!-- TRANG 1 -->
+
+        @if (currentPage === 0) {
+          <div class="text-7xl mb-6">🎂</div>
+
+          <h1 class="text-4xl md:text-5xl font-bold text-pink-600 mb-6">HAPPY BIRTHDAY</h1>
+
+          <p class="text-lg text-gray-600 leading-relaxed">
+            Hôm nay là một ngày thật đặc biệt, bởi vì đó là ngày một người đặc biệt được sinh ra
+            trên thế giới này. ❤️
+          </p>
+        }
+
+        <!-- TRANG 2 -->
+
+        @if (currentPage === 1) {
+          <div class="text-6xl mb-6">🌷</div>
+
+          <h2 class="text-3xl font-bold text-pink-600 mb-6">Một lời chúc nhỏ</h2>
+
+          <p class="text-lg text-gray-600 leading-relaxed">
+            Chúc bạn tuổi mới có thật nhiều niềm vui, nhiều khoảnh khắc đáng nhớ và luôn có những
+            người thật lòng ở bên cạnh mình.
+          </p>
+        }
+
+        <!-- TRANG 3 -->
+
+        @if (currentPage === 2) {
+          <div class="text-6xl mb-6">✨</div>
+
+          <h2 class="text-3xl font-bold text-pink-600 mb-6">Mong rằng...</h2>
+
+          <p class="text-lg text-gray-600 leading-relaxed">
+            Những điều bạn đang mong chờ rồi sẽ từ từ xuất hiện. Những điều khiến bạn buồn sẽ nhẹ
+            nhàng đi qua.
+          </p>
+        }
+
+        <!-- TRANG 4 -->
+
+        @if (currentPage === 3) {
+          <div class="text-7xl mb-6">❤️</div>
+
+          <h2 class="text-3xl font-bold text-pink-600 mb-6">Và cuối cùng...</h2>
+
+          <p class="text-lg text-gray-600 leading-relaxed">
+            Mong bạn luôn được yêu thương, được trân trọng và được sống thật vui với những điều mình
+            lựa chọn.
+          </p>
+
+          <p class="mt-6 text-pink-500 font-semibold text-xl">Chúc mừng sinh nhật nhé! 🎂</p>
+        }
+
+        <!-- TRANG 5 - ẢNH -->
+
+        @if (currentPage === 4) {
+          <div class="text-6xl mb-6">📸</div>
+
+          <h2 class="text-3xl font-bold text-pink-600 mb-8">Một chút kỷ niệm</h2>
+
+          <div class="grid grid-cols-2 gap-4">
+            <img
+              src="images/photo1.jpg"
+              class="w-full aspect-square object-cover rounded-2xl shadow-lg"
+              alt="Kỷ niệm 1"
+            />
+
+            <img
+              src="images/photo2.jpg"
+              class="w-full aspect-square object-cover rounded-2xl shadow-lg"
+              alt="Kỷ niệm 2"
+            />
+
+            <img
+              src="images/photo3.jpg"
+              class="w-full aspect-square object-cover rounded-2xl shadow-lg"
+              alt="Kỷ niệm 3"
+            />
+
+            <img
+              src="images/photo4.jpg"
+              class="w-full aspect-square object-cover rounded-2xl shadow-lg"
+              alt="Kỷ niệm 4"
+            />
+          </div>
+
+          <p class="mt-8 text-gray-500">
+            Có những khoảnh khắc nhỏ thôi, nhưng lại đáng nhớ thật lâu. ❤️
+          </p>
+        }
+
+        <!-- ========================= -->
+        <!-- NÚT ĐIỀU HƯỚNG -->
+        <!-- ========================= -->
+
+        <div class="flex justify-center gap-4 mt-10">
+          @if (currentPage > 0) {
+            <button
+              (click)="previousPage()"
+              class="px-6 py-3 rounded-full border border-pink-300 text-pink-500 hover:bg-pink-50 transition"
+            >
+              ← Quay lại
+            </button>
+          }
+
+          @if (currentPage < 4) {
+            <button
+              (click)="nextPage()"
+              class="px-7 py-3 rounded-full bg-pink-500 text-white shadow-lg hover:bg-pink-600 hover:scale-105 transition"
+            >
+              Đọc tiếp → 💌
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>
