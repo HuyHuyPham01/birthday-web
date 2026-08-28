@@ -1,4 +1,19 @@
 <div class="countdown-screen">
+  <div class="falling-hearts">
+    <span>♥</span>
+    <span>♡</span>
+    <span>♥</span>
+    <span>♡</span>
+    <span>♥</span>
+    <span>♡</span>
+    <span>♥</span>
+    <span>♡</span>
+    <span>♥</span>
+    <span>♡</span>
+    <span>♥</span>
+    <span>♡</span>
+  </div>
+
   <!-- Background glow -->
   <div class="glow glow-blue"></div>
   <div class="glow glow-green"></div>
@@ -9,9 +24,9 @@
     <!-- ========================= -->
 
     <div class="title-area">
-      <p class="small-title">MỘT NGÀY THẬT ĐẶC BIỆT SẮP ĐẾN</p>
+      <p class="small-title">MỘT NGÀY THẬT ĐẶC BIỆT</p>
 
-      <h1>CÒN LẠI</h1>
+      <h1>SẮP ĐẾN</h1>
 
       <div class="title-line"></div>
     </div>
@@ -30,18 +45,16 @@
           <svg viewBox="0 0 120 120">
             <defs>
               <linearGradient id="daysGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <!-- 25% xanh dương -->
-                <stop offset="0%" stop-color="#6fc4f5" />
-                <stop offset="25%" stop-color="#6fc4f5" />
+                <stop offset="0%" stop-color="#42A5F5" />
+                <stop offset="25%" stop-color="#42A5F5" />
 
-                <!-- 25% chuyển xanh dương → xanh ngọc -->
-                <stop offset="50%" stop-color="#7dd8d0" />
+                <stop offset="37.5%" stop-color="#26C6DA" />
+                <stop offset="50%" stop-color="#26C6DA" />
 
-                <!-- 25% chuyển xanh ngọc → xanh lá -->
-                <stop offset="75%" stop-color="#7ed9a9" />
+                <stop offset="62.5%" stop-color="#42C98A" />
+                <stop offset="75%" stop-color="#42C98A" />
 
-                <!-- 25% xanh lá -->
-                <stop offset="100%" stop-color="#70d39b" />
+                <stop offset="100%" stop-color="#32B86A" />
               </linearGradient>
             </defs>
 
@@ -58,6 +71,8 @@
               [style.stroke-dashoffset]="326.73 - (326.73 * daysProgress) / 100"
             />
           </svg>
+
+          <div class="circle-light"></div>
 
           <div class="time-number">
             {{ formatTime(days) }}
@@ -76,18 +91,16 @@
           <svg viewBox="0 0 120 120">
             <defs>
               <linearGradient id="hoursGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <!-- 25% xanh dương -->
-                <stop offset="0%" stop-color="#6fc4f5" />
-                <stop offset="25%" stop-color="#6fc4f5" />
+                <stop offset="0%" stop-color="#42A5F5" />
+                <stop offset="25%" stop-color="#42A5F5" />
 
-                <!-- 25% chuyển xanh dương → xanh ngọc -->
-                <stop offset="50%" stop-color="#7dd8d0" />
+                <stop offset="37.5%" stop-color="#26C6DA" />
+                <stop offset="50%" stop-color="#26C6DA" />
 
-                <!-- 25% chuyển xanh ngọc → xanh lá -->
-                <stop offset="75%" stop-color="#7ed9a9" />
+                <stop offset="62.5%" stop-color="#42C98A" />
+                <stop offset="75%" stop-color="#42C98A" />
 
-                <!-- 25% xanh lá -->
-                <stop offset="100%" stop-color="#70d39b" />
+                <stop offset="100%" stop-color="#32B86A" />
               </linearGradient>
             </defs>
 
@@ -102,6 +115,8 @@
               [style.stroke-dashoffset]="326.73 - (326.73 * hoursProgress) / 100"
             />
           </svg>
+
+          <div class="circle-light"></div>
 
           <div class="time-number">
             {{ formatTime(hours) }}
@@ -120,18 +135,16 @@
           <svg viewBox="0 0 120 120">
             <defs>
               <linearGradient id="minutesGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <!-- 25% xanh dương -->
-                <stop offset="0%" stop-color="#6fc4f5" />
-                <stop offset="25%" stop-color="#6fc4f5" />
+                <stop offset="0%" stop-color="#42A5F5" />
+                <stop offset="25%" stop-color="#42A5F5" />
 
-                <!-- 25% chuyển xanh dương → xanh ngọc -->
-                <stop offset="50%" stop-color="#7dd8d0" />
+                <stop offset="37.5%" stop-color="#26C6DA" />
+                <stop offset="50%" stop-color="#26C6DA" />
 
-                <!-- 25% chuyển xanh ngọc → xanh lá -->
-                <stop offset="75%" stop-color="#7ed9a9" />
+                <stop offset="62.5%" stop-color="#42C98A" />
+                <stop offset="75%" stop-color="#42C98A" />
 
-                <!-- 25% xanh lá -->
-                <stop offset="100%" stop-color="#70d39b" />
+                <stop offset="100%" stop-color="#32B86A" />
               </linearGradient>
             </defs>
 
@@ -146,6 +159,8 @@
               [style.stroke-dashoffset]="326.73 - (326.73 * minutesProgress) / 100"
             />
           </svg>
+
+          <div class="circle-light"></div>
 
           <div class="time-number">
             {{ formatTime(minutes) }}
@@ -164,18 +179,16 @@
           <svg viewBox="0 0 120 120">
             <defs>
               <linearGradient id="secondsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <!-- 25% xanh dương -->
-                <stop offset="0%" stop-color="#6fc4f5" />
-                <stop offset="25%" stop-color="#6fc4f5" />
+                <stop offset="0%" stop-color="#42A5F5" />
+                <stop offset="25%" stop-color="#42A5F5" />
 
-                <!-- 25% chuyển xanh dương → xanh ngọc -->
-                <stop offset="50%" stop-color="#7dd8d0" />
+                <stop offset="37.5%" stop-color="#26C6DA" />
+                <stop offset="50%" stop-color="#26C6DA" />
 
-                <!-- 25% chuyển xanh ngọc → xanh lá -->
-                <stop offset="75%" stop-color="#7ed9a9" />
+                <stop offset="62.5%" stop-color="#42C98A" />
+                <stop offset="75%" stop-color="#42C98A" />
 
-                <!-- 25% xanh lá -->
-                <stop offset="100%" stop-color="#70d39b" />
+                <stop offset="100%" stop-color="#32B86A" />
               </linearGradient>
             </defs>
 
@@ -190,6 +203,8 @@
               [style.stroke-dashoffset]="326.73 - (326.73 * secondsProgress) / 100"
             />
           </svg>
+
+          <div class="circle-light"></div>
 
           <div class="time-number">
             {{ formatTime(seconds) }}
