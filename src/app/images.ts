@@ -1,5 +1,6 @@
 export const images: string[] = [
-  'images/abc.jpg',
-  'images/hello.png',
-  'images/IMG_1234.jpeg'
+  'images/IMG_6538.JPG',
+  'images/IMG_6539.JPG',
+  'images/IMG_6540.JPG',
+  'images/IMG_6541.JPG',
 ];

@@ -1,0 +1,215 @@
+<div class="countdown-screen">
+  <!-- Background glow -->
+  <div class="glow glow-blue"></div>
+  <div class="glow glow-green"></div>
+
+  <div class="countdown-content">
+    <!-- ========================= -->
+    <!-- TIÊU ĐỀ -->
+    <!-- ========================= -->
+
+    <div class="title-area">
+      <p class="small-title">MỘT NGÀY THẬT ĐẶC BIỆT SẮP ĐẾN</p>
+
+      <h1>CÒN LẠI</h1>
+
+      <div class="title-line"></div>
+    </div>
+
+    <!-- ========================= -->
+    <!-- COUNTDOWN -->
+    <!-- ========================= -->
+
+    <div class="countdown-grid">
+      <!-- ========================= -->
+      <!-- NGÀY -->
+      <!-- ========================= -->
+
+      <div class="time-card">
+        <div class="circle">
+          <svg viewBox="0 0 120 120">
+            <defs>
+              <linearGradient id="daysGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <!-- 25% xanh dương -->
+                <stop offset="0%" stop-color="#6fc4f5" />
+                <stop offset="25%" stop-color="#6fc4f5" />
+
+                <!-- 25% chuyển xanh dương → xanh ngọc -->
+                <stop offset="50%" stop-color="#7dd8d0" />
+
+                <!-- 25% chuyển xanh ngọc → xanh lá -->
+                <stop offset="75%" stop-color="#7ed9a9" />
+
+                <!-- 25% xanh lá -->
+                <stop offset="100%" stop-color="#70d39b" />
+              </linearGradient>
+            </defs>
+
+            <!-- Vòng nền -->
+            <circle class="circle-background" cx="60" cy="60" r="52" />
+
+            <!-- Vòng progress -->
+            <circle
+              class="circle-progress"
+              cx="60"
+              cy="60"
+              r="52"
+              stroke="url(#daysGradient)"
+              [style.stroke-dashoffset]="326.73 - (326.73 * daysProgress) / 100"
+            />
+          </svg>
+
+          <div class="time-number">
+            {{ formatTime(days) }}
+          </div>
+        </div>
+
+        <div class="time-label">NGÀY</div>
+      </div>
+
+      <!-- ========================= -->
+      <!-- GIỜ -->
+      <!-- ========================= -->
+
+      <div class="time-card">
+        <div class="circle">
+          <svg viewBox="0 0 120 120">
+            <defs>
+              <linearGradient id="hoursGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <!-- 25% xanh dương -->
+                <stop offset="0%" stop-color="#6fc4f5" />
+                <stop offset="25%" stop-color="#6fc4f5" />
+
+                <!-- 25% chuyển xanh dương → xanh ngọc -->
+                <stop offset="50%" stop-color="#7dd8d0" />
+
+                <!-- 25% chuyển xanh ngọc → xanh lá -->
+                <stop offset="75%" stop-color="#7ed9a9" />
+
+                <!-- 25% xanh lá -->
+                <stop offset="100%" stop-color="#70d39b" />
+              </linearGradient>
+            </defs>
+
+            <circle class="circle-background" cx="60" cy="60" r="52" />
+
+            <circle
+              class="circle-progress"
+              cx="60"
+              cy="60"
+              r="52"
+              stroke="url(#hoursGradient)"
+              [style.stroke-dashoffset]="326.73 - (326.73 * hoursProgress) / 100"
+            />
+          </svg>
+
+          <div class="time-number">
+            {{ formatTime(hours) }}
+          </div>
+        </div>
+
+        <div class="time-label">GIỜ</div>
+      </div>
+
+      <!-- ========================= -->
+      <!-- PHÚT -->
+      <!-- ========================= -->
+
+      <div class="time-card">
+        <div class="circle">
+          <svg viewBox="0 0 120 120">
+            <defs>
+              <linearGradient id="minutesGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <!-- 25% xanh dương -->
+                <stop offset="0%" stop-color="#6fc4f5" />
+                <stop offset="25%" stop-color="#6fc4f5" />
+
+                <!-- 25% chuyển xanh dương → xanh ngọc -->
+                <stop offset="50%" stop-color="#7dd8d0" />
+
+                <!-- 25% chuyển xanh ngọc → xanh lá -->
+                <stop offset="75%" stop-color="#7ed9a9" />
+
+                <!-- 25% xanh lá -->
+                <stop offset="100%" stop-color="#70d39b" />
+              </linearGradient>
+            </defs>
+
+            <circle class="circle-background" cx="60" cy="60" r="52" />
+
+            <circle
+              class="circle-progress"
+              cx="60"
+              cy="60"
+              r="52"
+              stroke="url(#minutesGradient)"
+              [style.stroke-dashoffset]="326.73 - (326.73 * minutesProgress) / 100"
+            />
+          </svg>
+
+          <div class="time-number">
+            {{ formatTime(minutes) }}
+          </div>
+        </div>
+
+        <div class="time-label">PHÚT</div>
+      </div>
+
+      <!-- ========================= -->
+      <!-- GIÂY -->
+      <!-- ========================= -->
+
+      <div class="time-card">
+        <div class="circle">
+          <svg viewBox="0 0 120 120">
+            <defs>
+              <linearGradient id="secondsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <!-- 25% xanh dương -->
+                <stop offset="0%" stop-color="#6fc4f5" />
+                <stop offset="25%" stop-color="#6fc4f5" />
+
+                <!-- 25% chuyển xanh dương → xanh ngọc -->
+                <stop offset="50%" stop-color="#7dd8d0" />
+
+                <!-- 25% chuyển xanh ngọc → xanh lá -->
+                <stop offset="75%" stop-color="#7ed9a9" />
+
+                <!-- 25% xanh lá -->
+                <stop offset="100%" stop-color="#70d39b" />
+              </linearGradient>
+            </defs>
+
+            <circle class="circle-background" cx="60" cy="60" r="52" />
+
+            <circle
+              class="circle-progress"
+              cx="60"
+              cy="60"
+              r="52"
+              stroke="url(#secondsGradient)"
+              [style.stroke-dashoffset]="326.73 - (326.73 * secondsProgress) / 100"
+            />
+          </svg>
+
+          <div class="time-number">
+            {{ formatTime(seconds) }}
+          </div>
+        </div>
+
+        <div class="time-label">GIÂY</div>
+      </div>
+    </div>
+
+    <!-- ========================= -->
+    <!-- TRANG TRÍ -->
+    <!-- ========================= -->
+
+    <div class="decorations">
+      <span>✦</span>
+
+      <span>·</span>
+
+      <span>✦</span>
+    </div>
+  </div>
+</div>

@@ -1,74 +1,34 @@
-import { Component, ElementRef, ViewChild, signal } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { Countdown } from './countdown/countdown';
+import { Birthday } from './birthday/birthday';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+
+  imports: [Countdown, Birthday],
+
   templateUrl: './app.html',
+
   styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('birthday-web');
+  isBirthday = false;
 
-  @ViewChild('backgroundMusic')
-  backgroundMusic!: ElementRef<HTMLAudioElement>;
+  constructor() {
+    // Nếu người dùng mở web sau
+    // ngày 10/09/2026 thì vào thẳng Birthday
 
-  isOpened = false;
-  isCelebrating = false;
-  isMusicPlaying = false;
+    const targetDate = new Date('2026-09-10T00:00:00+07:00');
 
-  hearts = Array.from({ length: 20 });
+    const now = new Date();
 
-  currentPage = 0;
-
-  openGift() {
-    this.isCelebrating = true;
-
-    const music = this.backgroundMusic.nativeElement;
-
-    music.volume = 0.4;
-
-    music
-      .play()
-      .then(() => {
-        this.isMusicPlaying = true;
-      })
-      .catch((error) => {
-        console.log('Không thể phát nhạc:', error);
-      });
-
-    setTimeout(() => {
-      this.isOpened = true;
-      this.isCelebrating = false;
-    }, 1200);
-  }
-
-  toggleMusic() {
-    const music = this.backgroundMusic.nativeElement;
-
-    if (this.isMusicPlaying) {
-      music.pause();
-      this.isMusicPlaying = false;
-    } else {
-      music
-        .play()
-        .then(() => {
-          this.isMusicPlaying = true;
-        })
-        .catch((error) => {
-          console.log('Không thể phát nhạc:', error);
-        });
+    if (now.getTime() >= targetDate.getTime()) {
+      this.isBirthday = true;
     }
   }
 
-  nextPage() {
-    if (this.currentPage < 4) {
-      this.currentPage++;
-    }
-  }
-
-  previousPage() {
-    if (this.currentPage > 0) {
-      this.currentPage--;
-    }
+  birthdayStarted() {
+    this.isBirthday = true;
   }
 }
