@@ -1,7 +1,7 @@
 <div class="birthday-page">
   <div class="phone-screen">
     @if (!isBirthday) {
-      <app-countdown (finished)="birthdayStarted()" />
+      <app-countdown [targetDate]="targetDate" (finished)="birthdayStarted()" />
     } @else {
       <app-birthday />
     }

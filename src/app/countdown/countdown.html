@@ -1,96 +1,50 @@
-<div class="countdown-screen">
-  <div class="falling-hearts">
-    <span>♥</span>
-    <span>♡</span>
-    <span>♥</span>
-    <span>♡</span>
-    <span>♥</span>
-    <span>♡</span>
-    <span>♥</span>
-    <span>♡</span>
-    <span>♥</span>
-    <span>♡</span>
-    <span>♥</span>
-    <span>♡</span>
+<div
+  class="countdown-screen relative flex min-h-dvh w-full items-center justify-center overflow-hidden bg-white text-gray-900"
+>
+  <!-- ❤️ TIM RƠI -->
+  <div class="falling-hearts pointer-events-none absolute inset-0 z-10 overflow-hidden">
+    <span *ngFor="let heart of hearts">{{ heart }}</span>
   </div>
 
-  <!-- Background glow -->
-  <div class="glow glow-blue"></div>
-  <div class="glow glow-green"></div>
+  <!-- BACKGROUND GLOW -->
+  <div class="glow glow-blue pointer-events-none absolute"></div>
+  <div class="glow glow-green pointer-events-none absolute"></div>
 
-  <div class="countdown-content">
-    <!-- ========================= -->
+  <!-- CONTENT -->
+  <div
+    class="countdown-content relative z-20 w-full px-4 py-5 text-center sm:px-5 sm:py-6 lg:max-w-[900px] lg:px-5 lg:py-7"
+  >
     <!-- TIÊU ĐỀ -->
-    <!-- ========================= -->
+    <div class="title-area mb-8 sm:mb-9 lg:mb-[38px]">
+      <p
+        class="small-title mb-2 text-[9px] tracking-[3px] text-gray-900/45 sm:text-[10px] sm:tracking-[4px]"
+      >
+        MỘT NGÀY THẬT ĐẶC BIỆT
+      </p>
 
-    <div class="title-area">
-      <p class="small-title">MỘT NGÀY THẬT ĐẶC BIỆT</p>
+      <h1
+        class="m-0 text-[25px] font-light tracking-[4px] text-gray-900 min-[381px]:text-[28px] min-[381px]:tracking-[5px] sm:text-[32px] sm:tracking-[6px]"
+      >
+        SẮP ĐẾN
+      </h1>
 
-      <h1>SẮP ĐẾN</h1>
-
-      <div class="title-line"></div>
+      <div class="title-line mx-auto mt-4 h-[2px] w-[45px] rounded-[10px]"></div>
     </div>
 
-    <!-- ========================= -->
     <!-- COUNTDOWN -->
-    <!-- ========================= -->
-
-    <div class="countdown-grid">
-      <!-- ========================= -->
-      <!-- NGÀY -->
-      <!-- ========================= -->
-
-      <div class="time-card">
-        <div class="circle">
-          <svg viewBox="0 0 120 120">
+    <div
+      class="countdown-grid mx-auto flex w-full max-w-[760px] flex-wrap items-center justify-center gap-6 lg:gap-[35px]"
+    >
+      <div
+        class="time-card relative flex flex-col items-center"
+        *ngFor="let item of visibleCountdownItems"
+      >
+        <div
+          class="circle relative h-[125px] w-[125px] min-[381px]:h-[140px] min-[381px]:w-[140px] sm:h-[145px] sm:w-[145px] lg:h-[155px] lg:w-[155px]"
+        >
+          <svg class="h-full w-full -rotate-90" viewBox="0 0 120 120">
             <defs>
-              <linearGradient id="daysGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#42A5F5" />
-                <stop offset="25%" stop-color="#42A5F5" />
-
-                <stop offset="37.5%" stop-color="#26C6DA" />
-                <stop offset="50%" stop-color="#26C6DA" />
-
-                <stop offset="62.5%" stop-color="#42C98A" />
-                <stop offset="75%" stop-color="#42C98A" />
-
-                <stop offset="100%" stop-color="#32B86A" />
-              </linearGradient>
-            </defs>
-
-            <!-- Vòng nền -->
-            <circle class="circle-background" cx="60" cy="60" r="52" />
-
-            <!-- Vòng progress -->
-            <circle
-              class="circle-progress"
-              cx="60"
-              cy="60"
-              r="52"
-              stroke="url(#daysGradient)"
-              [style.stroke-dashoffset]="326.73 - (326.73 * daysProgress) / 100"
-            />
-          </svg>
-
-          <div class="circle-light"></div>
-
-          <div class="time-number">
-            {{ formatTime(days) }}
-          </div>
-        </div>
-
-        <div class="time-label">NGÀY</div>
-      </div>
-
-      <!-- ========================= -->
-      <!-- GIỜ -->
-      <!-- ========================= -->
-
-      <div class="time-card">
-        <div class="circle">
-          <svg viewBox="0 0 120 120">
-            <defs>
-              <linearGradient id="hoursGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <linearGradient [id]="item.gradientId" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#42A5F5" />
                 <stop offset="25%" stop-color="#42A5F5" />
 
@@ -111,120 +65,57 @@
               cx="60"
               cy="60"
               r="52"
-              stroke="url(#hoursGradient)"
-              [style.stroke-dashoffset]="326.73 - (326.73 * hoursProgress) / 100"
+              [attr.stroke]="'url(#' + item.gradientId + ')'"
+              [style.stroke-dashoffset]="326.73 - (326.73 * item.progress) / 100"
             />
           </svg>
 
-          <div class="circle-light"></div>
+          <!-- Glow -->
+          <div class="circle-light absolute inset-2 rounded-full"></div>
 
-          <div class="time-number">
-            {{ formatTime(hours) }}
+          <!-- Number -->
+          <div
+            class="time-number absolute inset-0 flex items-center justify-center text-[34px] font-light tracking-[-1px] min-[381px]:text-[38px] sm:text-[40px] lg:text-[42px]"
+          >
+            {{ formatTime(item.value) }}
           </div>
         </div>
 
-        <div class="time-label">GIỜ</div>
-      </div>
-
-      <!-- ========================= -->
-      <!-- PHÚT -->
-      <!-- ========================= -->
-
-      <div class="time-card">
-        <div class="circle">
-          <svg viewBox="0 0 120 120">
-            <defs>
-              <linearGradient id="minutesGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#42A5F5" />
-                <stop offset="25%" stop-color="#42A5F5" />
-
-                <stop offset="37.5%" stop-color="#26C6DA" />
-                <stop offset="50%" stop-color="#26C6DA" />
-
-                <stop offset="62.5%" stop-color="#42C98A" />
-                <stop offset="75%" stop-color="#42C98A" />
-
-                <stop offset="100%" stop-color="#32B86A" />
-              </linearGradient>
-            </defs>
-
-            <circle class="circle-background" cx="60" cy="60" r="52" />
-
-            <circle
-              class="circle-progress"
-              cx="60"
-              cy="60"
-              r="52"
-              stroke="url(#minutesGradient)"
-              [style.stroke-dashoffset]="326.73 - (326.73 * minutesProgress) / 100"
-            />
-          </svg>
-
-          <div class="circle-light"></div>
-
-          <div class="time-number">
-            {{ formatTime(minutes) }}
-          </div>
+        <!-- Label -->
+        <div
+          class="time-label mt-2.5 text-[9px] tracking-[2px] text-gray-900/55 min-[381px]:text-[10px] min-[381px]:tracking-[2.5px] sm:text-[11px] sm:tracking-[3px]"
+        >
+          {{ item.label }}
         </div>
-
-        <div class="time-label">PHÚT</div>
-      </div>
-
-      <!-- ========================= -->
-      <!-- GIÂY -->
-      <!-- ========================= -->
-
-      <div class="time-card">
-        <div class="circle">
-          <svg viewBox="0 0 120 120">
-            <defs>
-              <linearGradient id="secondsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#42A5F5" />
-                <stop offset="25%" stop-color="#42A5F5" />
-
-                <stop offset="37.5%" stop-color="#26C6DA" />
-                <stop offset="50%" stop-color="#26C6DA" />
-
-                <stop offset="62.5%" stop-color="#42C98A" />
-                <stop offset="75%" stop-color="#42C98A" />
-
-                <stop offset="100%" stop-color="#32B86A" />
-              </linearGradient>
-            </defs>
-
-            <circle class="circle-background" cx="60" cy="60" r="52" />
-
-            <circle
-              class="circle-progress"
-              cx="60"
-              cy="60"
-              r="52"
-              stroke="url(#secondsGradient)"
-              [style.stroke-dashoffset]="326.73 - (326.73 * secondsProgress) / 100"
-            />
-          </svg>
-
-          <div class="circle-light"></div>
-
-          <div class="time-number">
-            {{ formatTime(seconds) }}
-          </div>
-        </div>
-
-        <div class="time-label">GIÂY</div>
       </div>
     </div>
 
-    <!-- ========================= -->
     <!-- TRANG TRÍ -->
-    <!-- ========================= -->
-
-    <div class="decorations">
+    <div
+      class="decorations mx-auto mt-7 mb-5 flex h-[18px] w-full items-center justify-center gap-[18px] text-xs sm:mt-6 sm:mb-7"
+    >
       <span>✦</span>
-
       <span>·</span>
-
       <span>✦</span>
+    </div>
+
+    <!-- NGÀY + TÊN -->
+    <div class="countdown-message mt-8 flex flex-col items-center text-center sm:mt-8">
+      <span
+        class="date text-[10px] font-normal tracking-[3px] text-gray-900/55 sm:text-xs sm:tracking-[4px]"
+      >
+        10.09.2026
+      </span>
+
+      <span class="heart-wrapper my-2.5 flex h-6 w-6 items-center justify-center">
+        <span class="heart block text-base leading-none">♡</span>
+      </span>
+
+      <span
+        class="name mt-0.5 text-sm font-medium tracking-[3px] text-gray-900 sm:text-base sm:tracking-[4px]"
+      >
+        VŨ THẠNH
+      </span>
     </div>
   </div>
 </div>

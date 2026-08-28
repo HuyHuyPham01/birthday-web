@@ -2,38 +2,92 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  Input,
   OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+interface CountdownItem {
+  label: string;
+  value: number;
+  progress: number;
+  gradientId: string;
+}
 
 @Component({
   selector: 'app-countdown',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './countdown.html',
   styleUrl: './countdown.css',
 })
 export class Countdown implements OnInit, OnDestroy {
   @Output() finished = new EventEmitter<void>();
 
-  targetDate = new Date('2026-09-10T00:00:00+07:00');
+  // =================================================
+  // CONFIG
+  // =================================================
 
-  days = 0;
-  hours = 0;
-  minutes = 0;
-  seconds = 0;
+  @Input() targetDate!: Date;
 
-  // Phần trăm vòng tròn còn lại
-  daysProgress = 100;
-  hoursProgress = 100;
-  minutesProgress = 100;
-  secondsProgress = 100;
+  readonly hearts = [
+    '♥',
+    '✦',
+    '♡',
+    '♥',
+    '✧',
+    '♥',
+    '✦',
+    '♡',
+    '♥',
+    '✧',
+    '♥',
+    '✦',
+    '♡',
+    '♥',
+    '✧',
+    '♥',
+  ];
+
+  // =================================================
+  // COUNTDOWN
+  // =================================================
+
+  countdownItems: CountdownItem[] = [
+    this.createItem('NGÀY', 'daysGradient'),
+    this.createItem('GIỜ', 'hoursGradient'),
+    this.createItem('PHÚT', 'minutesGradient'),
+    this.createItem('GIÂY', 'secondsGradient'),
+  ];
+
+  get visibleCountdownItems(): CountdownItem[] {
+    const [days, hours, minutes, seconds] = this.countdownItems;
+
+    if (days.value > 0) {
+      return [days, hours, minutes, seconds];
+    }
+
+    if (hours.value > 0) {
+      return [hours, minutes, seconds];
+    }
+
+    if (minutes.value > 0) {
+      return [minutes, seconds];
+    }
+
+    return [seconds];
+  }
 
   private timer?: ReturnType<typeof setInterval>;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
-  ngOnInit() {
+  // =================================================
+  // LIFECYCLE
+  // =================================================
+
+  ngOnInit(): void {
     this.updateCountdown();
 
     this.timer = setInterval(() => {
@@ -42,71 +96,86 @@ export class Countdown implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  updateCountdown() {
-    const now = new Date();
+  ngOnDestroy(): void {
+    this.clearTimer();
+  }
 
-    const difference = this.targetDate.getTime() - now.getTime();
+  // =================================================
+  // COUNTDOWN LOGIC
+  // =================================================
+
+  updateCountdown(): void {
+    const difference = this.targetDate.getTime() - Date.now();
 
     if (difference <= 0) {
-      this.days = 0;
-      this.hours = 0;
-      this.minutes = 0;
-      this.seconds = 0;
-
-      this.daysProgress = 0;
-      this.hoursProgress = 0;
-      this.minutesProgress = 0;
-      this.secondsProgress = 0;
-
       this.clearTimer();
-
       this.finished.emit();
-
       return;
     }
 
-    this.days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const days = Math.floor(difference / this.DAY);
+    const hours = Math.floor((difference / this.HOUR) % 24);
+    const minutes = Math.floor((difference / this.MINUTE) % 60);
+    const seconds = Math.floor((difference / this.SECOND) % 60);
 
-    this.hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+    this.setCountdownItem(0, days, this.getDaysProgress(days));
 
-    this.minutes = Math.floor((difference / (1000 * 60)) % 60);
+    this.setCountdownItem(1, hours, (hours / 24) * 100);
 
-    this.seconds = Math.floor((difference / 1000) % 60);
+    this.setCountdownItem(2, minutes, (minutes / 60) * 100);
 
-    // =========================
-    // TÍNH % VÒNG TRÒN
-    // =========================
+    this.setCountdownItem(3, seconds, (seconds / 60) * 100);
+  }
 
-    // Số ngày tối đa từ hiện tại đến ngày sinh nhật.
-    // Dùng để vòng DAYS giảm dần theo tổng thời gian.
-    const totalDays = Math.ceil(
-      (this.targetDate.getTime() - new Date().setHours(0, 0, 0, 0)) / (1000 * 60 * 60 * 24),
-    );
+  // =================================================
+  // PROGRESS
+  // =================================================
 
-    this.daysProgress = totalDays > 0 ? (this.days / totalDays) * 100 : 0;
+  private getDaysProgress(days: number): number {
+    const today = new Date();
 
-    // 24 giờ
-    this.hoursProgress = (this.hours / 24) * 100;
+    today.setHours(0, 0, 0, 0);
 
-    // 60 phút
-    this.minutesProgress = (this.minutes / 60) * 100;
+    const totalDays = Math.ceil((this.targetDate.getTime() - today.getTime()) / this.DAY);
 
-    // 60 giây
-    this.secondsProgress = (this.seconds / 60) * 100;
+    return totalDays > 0 ? (days / totalDays) * 100 : 0;
+  }
+
+  private setCountdownItem(index: number, value: number, progress: number): void {
+    this.countdownItems[index].value = value;
+    this.countdownItems[index].progress = progress;
+  }
+
+  // =================================================
+  // HELPERS
+  // =================================================
+
+  private createItem(label: string, gradientId: string): CountdownItem {
+    return {
+      label,
+      value: 0,
+      progress: 100,
+      gradientId,
+    };
   }
 
   formatTime(value: number): string {
     return value.toString().padStart(2, '0');
   }
 
-  clearTimer() {
+  private clearTimer(): void {
     if (this.timer) {
       clearInterval(this.timer);
       this.timer = undefined;
     }
   }
 
-  ngOnDestroy() {
-    this.clearTimer();
-  }
+  // =================================================
+  // TIME CONSTANTS
+  // =================================================
+
+  private readonly SECOND = 1000;
+  private readonly MINUTE = 60 * this.SECOND;
+  private readonly HOUR = 60 * this.MINUTE;
+  private readonly DAY = 24 * this.HOUR;
 }

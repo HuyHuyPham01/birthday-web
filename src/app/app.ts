@@ -5,30 +5,16 @@ import { Birthday } from './birthday/birthday';
 
 @Component({
   selector: 'app-root',
-
   imports: [Countdown, Birthday],
-
   templateUrl: './app.html',
-
   styleUrl: './app.css',
 })
 export class App {
-  isBirthday = false;
+  readonly targetDate = new Date('2026-09-10T00:00:00+07:00');
 
-  constructor() {
-    // Nếu người dùng mở web sau
-    // ngày 10/09/2026 thì vào thẳng Birthday
+  isBirthday = Date.now() >= this.targetDate.getTime();
 
-    const targetDate = new Date('2026-09-10T00:00:00+07:00');
-
-    const now = new Date();
-
-    if (now.getTime() >= targetDate.getTime()) {
-      this.isBirthday = true;
-    }
-  }
-
-  birthdayStarted() {
+  birthdayStarted(): void {
     this.isBirthday = true;
   }
 }
