@@ -129,6 +129,6 @@ export const memories: Memory[] = [
     image: 'images/IMG_7778.JPG',
     date: 'Cuối cùng · Điều anh mong',
     title: 'Điều anh muốn nói',
-    note: 'Anh trân trọng từng kỷ niệm mình đã có cùng nhau. Và nếu em cũng cảm thấy như anh, anh mong một ngày nào đó mình sẽ thật sự bên nhau. Anh thương em <3',
+    note: 'Anh trân trọng từng kỷ niệm mình đã có cùng nhau. Và nếu em cũng cảm thấy như anh, anh mong một ngày nào đó mình sẽ thật sự bên nhau. Chúc em sinh nhật vui vẻ!Anh thương em <3',
   },
 ];
