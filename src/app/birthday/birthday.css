@@ -1,182 +1,478 @@
-/* ========================================
-   ROOT
-======================================== */
+/* =====================================================
+   ANIMATIONS
+   Phần giao diện chính dùng Tailwind
+===================================================== */
 
-:host {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
+/* =====================================================
+   CELEBRATION FLASH
+===================================================== */
 
-/* ========================================
-   SCROLLBAR
-======================================== */
-
-:host ::-webkit-scrollbar {
-  width: 4px;
-}
-
-:host ::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-:host ::-webkit-scrollbar-thumb {
-  background: rgba(236, 72, 153, 0.35);
-  border-radius: 20px;
-}
-
-/* ========================================
-   CONFETTI
-======================================== */
-
-.confetti {
-  position: absolute;
-
-  top: -50px;
-
-  font-size: 24px;
-
-  animation: confettiFall 4s linear infinite;
-
-  pointer-events: none;
-
-  z-index: 5;
-}
-
-@keyframes confettiFall {
+@keyframes celebration-flash {
   0% {
-    transform: translateY(-50px) rotate(0deg);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.3;
+  }
+
+  45% {
+    opacity: 0.12;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-celebration-flash {
+  animation: celebration-flash 1.2s ease-out forwards;
+}
+
+/* =====================================================
+   GIFT SHINE
+===================================================== */
+
+@keyframes gift-shine {
+  0% {
+    left: -100px;
+  }
+
+  50%,
+  100% {
+    left: 200px;
+  }
+}
+
+.animate-gift-shine {
+  animation: gift-shine 3s infinite;
+}
+
+/* =====================================================
+   DOT
+===================================================== */
+
+@keyframes pulse-dot {
+  50% {
+    transform: scale(1.8);
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 1.5s infinite;
+}
+
+/* =====================================================
+   HEART
+===================================================== */
+
+@keyframes heartbeat {
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.5s infinite;
+}
+
+/* =====================================================
+   MUSIC
+===================================================== */
+
+@keyframes music-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.music-playing {
+  display: inline-block;
+
+  animation: music-bounce 1s infinite;
+}
+
+/* =====================================================
+   FLOATING PARTICLES
+===================================================== */
+
+@keyframes float-up {
+  0% {
+    transform: translateY(0) scale(0.5);
 
     opacity: 0;
   }
 
-  10% {
-    opacity: 1;
+  15% {
+    opacity: 0.5;
   }
 
-  90% {
+  80% {
+    opacity: 0.15;
+  }
+
+  100% {
+    transform: translateY(-900px) scale(1.3);
+
+    opacity: 0;
+  }
+}
+
+.animate-float-up {
+  animation: float-up 7s linear infinite;
+}
+
+/* =====================================================
+   CARD
+===================================================== */
+
+@keyframes card-appear {
+  from {
+    opacity: 0;
+
+    transform: translateY(20px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-card-appear {
+  animation: card-appear 0.6s ease;
+}
+
+/* =====================================================
+   CAKE
+===================================================== */
+
+@keyframes cake-float {
+  50% {
+    transform: translateY(-6px) rotate(2deg);
+  }
+}
+
+.animate-cake-float {
+  animation: cake-float 2.5s ease-in-out infinite;
+}
+
+/* =====================================================
+   BIRTHDAY REVEAL
+===================================================== */
+
+@keyframes birthday-reveal {
+  0% {
+    opacity: 0;
+
+    transform: translateY(35px) scale(0.94);
+  }
+
+  60% {
     opacity: 1;
   }
 
   100% {
-    transform: translateY(950px) rotate(360deg);
+    opacity: 1;
 
-    opacity: 0;
+    transform: translateY(0) scale(1);
   }
 }
 
-/* ========================================
-   TRÁI TIM
-======================================== */
+/* =====================================================
+   BIRTHDAY HEART REVEAL
+===================================================== */
 
-.heart {
-  position: absolute;
+@keyframes birthday-heart-reveal {
+  0% {
+    opacity: 0;
 
-  bottom: -50px;
+    transform: scale(0.3);
+  }
 
-  pointer-events: none;
+  65% {
+    opacity: 1;
 
-  z-index: 4;
+    transform: scale(1.2);
+  }
 
-  animation: heartFloat 5s ease-in infinite;
+  100% {
+    opacity: 1;
 
+    transform: scale(1);
+  }
+}
+
+/* =====================================================
+   BIRTHDAY REVEAL
+===================================================== */
+
+.birthday-reveal {
   opacity: 0;
 }
 
-@keyframes heartFloat {
-  0% {
-    transform: translateY(0) scale(0.6) rotate(0deg);
+/*
+   Khi Story được render:
 
-    opacity: 0;
-  }
+   .story-visible
+        ↓
+   birthday-reveal
 
-  10% {
-    opacity: 0.9;
-  }
+   Không còn story-enter nữa.
+*/
 
-  50% {
-    transform: translateY(-450px) scale(1) rotate(15deg);
-
-    opacity: 0.8;
-  }
-
-  100% {
-    transform: translateY(-900px) scale(1.2) rotate(-15deg);
-
-    opacity: 0;
-  }
+.story-visible .birthday-reveal {
+  animation: birthday-reveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-/* ========================================
-   ẢNH KỶ NIỆM
-======================================== */
+/* Cake */
 
-:host img {
-  display: block;
-  max-width: 100%;
+.story-visible .birthday-reveal-1 {
+  animation-delay: 0s;
 }
 
-:host img:hover {
-  transform: scale(1.03);
+/* TODAY IS YOUR DAY */
+
+.story-visible .birthday-reveal-2 {
+  animation-delay: 0.65s;
 }
 
-/* ========================================
-   NÚT
-======================================== */
+/* HAPPY BIRTHDAY + LINE */
 
-button {
-  -webkit-tap-highlight-color: transparent;
+.story-visible .birthday-reveal-3 {
+  animation-delay: 0.95s;
 }
 
-button:focus-visible {
-  outline: 3px solid rgba(236, 72, 153, 0.4);
-  outline-offset: 4px;
+/* MESSAGE */
+
+.story-visible .birthday-reveal-4 {
+  animation-delay: 1.25s;
 }
 
-/* ========================================
-   ANIMATION MỞ QUÀ
-======================================== */
+/* Heart */
 
-@keyframes giftOpen {
-  0% {
-    transform: scale(1);
-  }
+.story-visible .birthday-reveal-heart {
+  opacity: 0;
 
-  50% {
-    transform: scale(1.1);
-  }
-
-  100% {
-    transform: scale(1);
-  }
+  animation: birthday-heart-reveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1.7s forwards;
 }
 
-/* ========================================
-   MOBILE FONT
-======================================== */
-
-@media (max-width: 390px) {
-  :host h1 {
-    line-height: 1.15;
-  }
-
-  :host h2 {
-    line-height: 1.2;
-  }
-}
-
-/* ========================================
+/* =====================================================
    REDUCED MOTION
-======================================== */
+===================================================== */
 
 @media (prefers-reduced-motion: reduce) {
-  :host *,
-  :host *::before,
-  :host *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
 
     animation-iteration-count: 1 !important;
 
     transition-duration: 0.01ms !important;
   }
+}
+
+/* =====================================================
+   GIFT INTRO
+   Xuất hiện theo từng lớp
+===================================================== */
+
+/* ---------- BACKGROUND ---------- */
+
+@keyframes intro-background {
+  from {
+    opacity: 0;
+
+    transform: scale(1.06);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: scale(1);
+  }
+}
+
+.gift-intro-background {
+  animation: intro-background 1.4s ease-out forwards;
+}
+
+/* ---------- LABEL ---------- */
+
+@keyframes intro-label {
+  from {
+    opacity: 0;
+
+    transform: translateY(14px);
+
+    letter-spacing: 9px;
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+
+    letter-spacing: 5px;
+  }
+}
+
+.gift-intro-label {
+  opacity: 0;
+
+  animation: intro-label 0.7s ease-out 0.2s forwards;
+}
+
+/* ---------- TITLE ---------- */
+
+@keyframes intro-title {
+  from {
+    opacity: 0;
+
+    transform: translateY(22px);
+
+    filter: blur(5px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+
+    filter: blur(0);
+  }
+}
+
+.gift-title-line {
+  display: inline-block;
+
+  opacity: 0;
+}
+
+.gift-title-line-1 {
+  animation: intro-title 0.7s ease-out 0.5s forwards;
+}
+
+.gift-title-line-3 {
+  animation: intro-title 0.7s ease-out 1s forwards;
+}
+
+/* ---------- SPECIAL ---------- */
+
+@keyframes intro-special {
+  from {
+    opacity: 0;
+
+    transform: translateY(24px) scale(0.9);
+
+    filter: blur(5px);
+  }
+
+  65% {
+    opacity: 1;
+
+    transform: translateY(-2px) scale(1.04);
+
+    filter: blur(0);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0) scale(1);
+  }
+}
+
+.gift-title-special {
+  opacity: 0;
+
+  animation: intro-special 0.85s ease-out 0.75s forwards;
+}
+
+/* =====================================================
+   HỘP QUÀ
+===================================================== */
+
+/* ---------- TOÀN BỘ HỘP ---------- */
+
+@keyframes intro-gift {
+  from {
+    opacity: 0;
+
+    transform: translateY(35px) scale(0.82);
+
+    filter: blur(4px);
+  }
+
+  65% {
+    opacity: 1;
+
+    transform: translateY(-5px) scale(1.025);
+
+    filter: blur(0);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0) scale(1);
+  }
+}
+
+.gift-box-intro {
+  opacity: 0;
+
+  animation: intro-gift 1s cubic-bezier(0.22, 1, 0.36, 1) 1.35s forwards;
+}
+
+/* ---------- ÁNH SÁNG ---------- */
+
+@keyframes intro-glow {
+  from {
+    opacity: 0;
+
+    transform: translateX(-50%) scale(0.5);
+  }
+
+  to {
+    opacity: 0.3;
+
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+.gift-box-glow {
+  opacity: 0;
+
+  animation: intro-glow 1.2s ease-out 1.7s forwards;
+}
+
+/* ---------- TAP ---------- */
+
+@keyframes intro-tap {
+  from {
+    opacity: 0;
+
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+.gift-intro-tap {
+  opacity: 0;
+
+  animation: intro-tap 0.7s ease-out 2.2s forwards;
 }

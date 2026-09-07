@@ -1,235 +1,763 @@
-<!-- ========================= -->
-<!-- NHẠC -->
-<!-- ========================= -->
+<!-- =====================================================
+     NHẠC
+===================================================== -->
 
 <audio #backgroundMusic src="music/birthday.mp3" loop></audio>
 
-<!-- ========================= -->
-<!-- HIỆU ỨNG MỞ QUÀ -->
-<!-- ========================= -->
+<!-- =====================================================
+     KHUNG WEBSITE
+===================================================== -->
 
-@if (isCelebrating) {
-  <div class="fixed inset-0 z-50 bg-white animate-ping pointer-events-none"></div>
-}
+<div class="relative h-dvh w-full overflow-hidden bg-[#eaf8ff] text-[#1e293b]">
+  <!-- ===================================================
+       FLASH KHI MỞ QUÀ
+  ==================================================== -->
 
-<!-- ========================= -->
-<!-- MỞ QUÀ -->
-<!-- ========================= -->
+  @if (isCelebrating) {
+    <div class="fixed inset-0 z-[100] pointer-events-none bg-white animate-celebration-flash"></div>
+  }
 
-@if (!isOpened) {
-  <div class="w-full h-full flex items-center justify-center px-6">
-    <div class="text-center">
-      <!-- Hộp quà -->
+  <!-- ===================================================
+       MÀN HÌNH MỞ QUÀ
 
-      <button (click)="openGift()" class="group relative mx-auto block" aria-label="Mở món quà">
-        <!-- Nắp hộp -->
+       QUAN TRỌNG:
+       Chỉ tồn tại khi CHƯA mở quà.
+  ==================================================== -->
 
-        <div
-          class="relative z-20 w-48 h-16 mx-auto bg-pink-500 rounded-xl shadow-xl transition-all duration-500 group-hover:-translate-y-3 group-hover:rotate-2"
-        >
-          <!-- Ruy-băng -->
-
-          <div class="absolute left-1/2 -translate-x-1/2 top-0 w-8 h-full bg-yellow-300"></div>
-        </div>
-
-        <!-- Thân hộp -->
-
-        <div
-          class="relative w-40 h-40 mx-auto bg-pink-600 rounded-b-2xl shadow-2xl transition-all duration-500 group-hover:scale-105"
-        >
-          <!-- Ruy-băng -->
-
-          <div class="absolute left-1/2 -translate-x-1/2 top-0 w-8 h-full bg-yellow-300"></div>
-        </div>
-
-        <!-- Nơ -->
-
-        <div
-          class="absolute -top-10 left-1/2 -translate-x-1/2 z-30 text-6xl transition-transform duration-500 group-hover:scale-110"
-        >
-          🎀
-        </div>
-      </button>
-
-      <!-- Tiêu đề -->
-
-      <h1 class="mt-12 text-3xl font-bold text-pink-600">Có một món quà dành cho bạn...</h1>
-
-      <p class="mt-4 text-gray-500 text-lg">Bấm vào hộp quà nhé 💗</p>
-    </div>
-  </div>
-}
-
-<!-- ========================= -->
-<!-- SAU KHI MỞ QUÀ -->
-<!-- ========================= -->
-
-@else {
-  <!-- ========================= -->
-  <!-- NÚT NHẠC -->
-  <!-- ========================= -->
-
-  <button
-    (click)="toggleMusic()"
-    class="fixed top-5 right-5 z-50 w-12 h-12 rounded-full bg-white/80 backdrop-blur shadow-lg flex items-center justify-center text-xl hover:scale-110 transition"
-    aria-label="Bật hoặc tắt nhạc"
-  >
-    {{ isMusicPlaying ? '🔊' : '🔇' }}
-  </button>
-
-  <!-- ========================= -->
-  <!-- CONFETTI -->
-  <!-- ========================= -->
-
-  <div class="absolute inset-0 pointer-events-none overflow-hidden">
-    @for (piece of hearts; track $index) {
+  @if (!isOpened) {
+    <div class="absolute inset-0 z-20">
       <div
-        class="confetti"
-        [style.left.%]="($index * 37) % 100"
-        [style.animation-delay.s]="$index * 0.08"
+        class="gift-intro-background relative flex h-full w-full items-center justify-center overflow-hidden bg-[#eaf8ff] bg-[radial-gradient(circle_at_20%_20%,rgba(56,189,248,0.25),transparent_35%),radial-gradient(circle_at_80%_75%,rgba(34,197,94,0.18),transparent_35%)]"
       >
-        {{ $index % 2 === 0 ? '🎉' : '✨' }}
+        <!-- =================================================
+             BACKGROUND GLOW
+        ================================================== -->
+
+        <div
+          class="pointer-events-none absolute -left-16 top-[5%] h-[220px] w-[220px] rounded-full bg-[#38bdf8] opacity-30 blur-[80px]"
+        ></div>
+
+        <div
+          class="pointer-events-none absolute -right-16 bottom-[5%] h-[220px] w-[220px] rounded-full bg-[#22c55e] opacity-25 blur-[80px]"
+        ></div>
+
+        <!-- =================================================
+             GIFT CONTENT
+        ================================================== -->
+
+        <div class="relative z-10 w-full max-w-[650px] px-5 text-center sm:px-8">
+          <!-- LABEL -->
+
+          <p
+            class="gift-intro gift-intro-label mb-5 text-[12px] font-bold tracking-[5px] text-[#159bd1]"
+          >
+            MỘT BẤT NGỜ NHỎ
+          </p>
+
+          <!-- TITLE -->
+
+          <h1
+            class="m-0 text-[34px] font-light leading-[1.25] tracking-[-1px] text-[#1e293b] sm:text-[42px] md:text-[54px]"
+          >
+            <span class="gift-title-line gift-title-line-1"> Một điều </span>
+
+            <br />
+
+            <span class="gift-title-line gift-title-special font-bold text-[#1685c7]">
+              đặc biệt
+            </span>
+
+            <br />
+
+            <span class="gift-title-line gift-title-line-3"> dành cho bạn. </span>
+          </h1>
+
+          <!-- =================================================
+               HỘP QUÀ
+          ================================================== -->
+
+          <button
+            type="button"
+            class="gift-box-intro group relative mx-auto mt-12 mb-11 block h-[230px] w-[220px] cursor-pointer border-0 bg-transparent outline-none touch-manipulation md:mt-[75px]"
+            (click)="openGift()"
+            aria-label="Mở món quà"
+          >
+            <!-- GLOW -->
+
+            <div
+              class="gift-box-glow pointer-events-none absolute left-1/2 top-[80px] h-[150px] w-[150px] -translate-x-1/2 rounded-full bg-[#86efac]/30 blur-[45px]"
+            ></div>
+
+            <!-- SHADOW -->
+
+            <div
+              class="absolute bottom-0 left-1/2 h-[25px] w-[170px] -translate-x-1/2 rounded-[50%] bg-black/25 blur-[12px] transition-all duration-700"
+              [class.scale-75]="isOpening"
+              [class.opacity-50]="isOpening"
+            ></div>
+
+            <!-- ÁNH SÁNG TRONG HỘP -->
+
+            <div
+              class="absolute left-1/2 top-[72px] z-[3] h-[100px] w-[120px] -translate-x-1/2 scale-50 rounded-full bg-[#86efac] opacity-0 blur-[30px] transition-all duration-[2500ms] ease-out"
+              [class.scale-150]="isOpening"
+              [class.opacity-80]="isOpening"
+            ></div>
+
+            <!-- =================================================
+                 NƠ
+            ================================================== -->
+
+            <div
+              class="gift-bow absolute left-1/2 top-[15px] z-10 h-[55px] w-[90px] -translate-x-1/2 transition-all duration-[2500ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+              [class.-translate-y-10]="isOpening"
+              [class.rotate-[-10deg]]="isOpening"
+              [class.scale-110]="isOpening"
+            >
+              <!-- Bow left -->
+
+              <div
+                class="absolute left-0 top-[10px] h-[35px] w-[48px] rotate-[-18deg] rounded-[50%_15%_50%_50%] border-[7px] border-[#22c55e] bg-[#22c55e]/10 shadow-[0_0_15px_rgba(34,197,94,0.2)]"
+              ></div>
+
+              <!-- Bow right -->
+
+              <div
+                class="absolute right-0 top-[10px] h-[35px] w-[48px] rotate-[18deg] rounded-[15%_50%_50%_50%] border-[7px] border-[#22c55e] bg-[#22c55e]/10 shadow-[0_0_15px_rgba(34,197,94,0.2)]"
+              ></div>
+
+              <!-- Bow center -->
+
+              <div
+                class="absolute left-1/2 top-[18px] h-[22px] w-[22px] -translate-x-1/2 rounded-full bg-[#22c55e] shadow-[0_0_18px_rgba(34,197,94,0.65)]"
+              ></div>
+            </div>
+
+            <!-- =================================================
+                 NẮP HỘP
+            ================================================== -->
+
+            <div
+              class="gift-lid absolute left-1/2 top-[50px] z-[4] h-[42px] w-[175px] -translate-x-1/2 rounded-[9px] bg-[linear-gradient(135deg,#7dd3fc,#2495d1)] shadow-[0_10px_20px_rgba(0,0,0,0.25)] transition-all duration-[2500ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+              [class.-translate-y-10]="isOpening"
+              [class.translate-x-[-65px]]="isOpening"
+              [class.rotate-[-10deg]]="isOpening"
+            >
+              <div
+                class="absolute left-1/2 top-0 h-full w-[25px] -translate-x-1/2 bg-[linear-gradient(90deg,#86efac,#22c55e,#86efac)]"
+              ></div>
+            </div>
+
+            <!-- =================================================
+                 BOX
+            ================================================== -->
+
+            <div
+              class="gift-body absolute bottom-[15px] left-1/2 h-[130px] w-[150px] -translate-x-1/2 overflow-hidden rounded-[8px_8px_18px_18px] bg-[linear-gradient(135deg,#38bdf8,#1685c7)] shadow-[0_18px_35px_rgba(0,0,0,0.25)] transition-all duration-[2500ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+              [class.scale-105]="isOpening"
+              [class.-translate-y-1]="isOpening"
+            >
+              <!-- Ribbon -->
+
+              <div
+                class="absolute left-1/2 top-0 h-full w-[25px] -translate-x-1/2 bg-[linear-gradient(90deg,#86efac,#22c55e,#86efac)] shadow-[0_0_15px_rgba(34,197,94,0.3)]"
+              ></div>
+
+              <!-- Shine -->
+
+              <div
+                class="absolute -left-[100px] top-0 h-full w-[70px] skew-x-[-20deg] bg-white/20 animate-gift-shine"
+              ></div>
+            </div>
+          </button>
+
+          <!-- =================================================
+               TAP TO OPEN
+          ================================================== -->
+
+          <div
+            class="gift-intro gift-intro-tap flex flex-col items-center gap-[15px] transition-all duration-500"
+            [class.opacity-0]="isOpening"
+          >
+            <div
+              class="h-[5px] w-[5px] rounded-full bg-[#22c55e] shadow-[0_0_12px_#22c55e] animate-pulse-dot"
+            ></div>
+
+            <p class="m-0 text-[12px] tracking-[4px] text-[#64748b]">CHẠM ĐỂ MỞ</p>
+
+            <span class="text-[18px] text-[#38bdf8] animate-heartbeat"> ♡ </span>
+          </div>
+        </div>
       </div>
-    }
-  </div>
-
-  <!-- ========================= -->
-  <!-- TIM BAY -->
-  <!-- ========================= -->
-
-  @for (heart of hearts; track $index) {
-    <div
-      class="heart text-3xl"
-      [style.left.%]="($index * 47) % 100"
-      [style.animation-delay.s]="$index * 0.25"
-    >
-      ❤️
     </div>
   }
 
-  <!-- ========================= -->
-  <!-- NỘI DUNG -->
-  <!-- ========================= -->
+  <!-- ===================================================
+       STORY
 
-  <div
-    class="relative z-10 w-full h-full overflow-y-auto flex items-center justify-center px-5 py-8"
-  >
-    <div
-      class="w-full max-w-2xl bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl p-7 text-center"
-    >
-      <!-- ========================= -->
-      <!-- TRANG 1 -->
-      <!-- ========================= -->
+       QUAN TRỌNG:
+       Chỉ render SAU KHI isOpened = true.
 
-      @if (currentPage === 0) {
-        <div class="text-7xl mb-6">🎂</div>
+       Không còn:
+       - opacity-0
+       - opacity-100
+       - transition-all
+       - story-enter
+       - scale
+       - 2 màn hình chồng lên nhau
+  ==================================================== -->
 
-        <h1 class="text-4xl font-bold text-pink-600 mb-6">
-          HAPPY
-          <br />
-          BIRTHDAY
-        </h1>
+  @if (isOpened) {
+    <div class="story-visible absolute inset-0 z-30">
+      <div
+        class="relative h-full w-full overflow-hidden bg-[linear-gradient(155deg,#eaf8ff,#f7fdff_50%,#eafff5)]"
+      >
+        <!-- =================================================
+             BACKGROUND
+        ================================================== -->
 
-        <p class="text-lg text-gray-600 leading-relaxed">
-          Hôm nay là một ngày thật đặc biệt, bởi vì đó là ngày một người đặc biệt được sinh ra trên
-          thế giới này. ❤️
-        </p>
-      }
+        <div
+          class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(56,189,248,0.18),transparent_30%),radial-gradient(circle_at_90%_80%,rgba(34,197,94,0.14),transparent_30%)]"
+        ></div>
 
-      <!-- ========================= -->
-      <!-- TRANG 2 -->
-      <!-- ========================= -->
+        <!-- =================================================
+             MUSIC BUTTON
+        ================================================== -->
 
-      @if (currentPage === 1) {
-        <div class="text-6xl mb-6">🌷</div>
+        <button
+          type="button"
+          class="absolute right-4 top-4 z-40 flex h-[42px] w-[42px] items-center justify-center rounded-full border border-[#1e293b]/10 bg-white/80 text-[#1e293b] shadow-[0_5px_20px_rgba(0,0,0,0.08)] backdrop-blur-[10px] transition-transform hover:scale-110 md:right-8 md:top-6"
+          (click)="toggleMusic()"
+          aria-label="Bật hoặc tắt nhạc"
+        >
+          <span [class.music-playing]="isMusicPlaying">
+            {{ isMusicPlaying ? '🎵' : '🔇' }}
+          </span>
+        </button>
 
-        <h2 class="text-3xl font-bold text-pink-600 mb-6">Một lời chúc nhỏ</h2>
+        <!-- =================================================
+             FLOATING
+        ================================================== -->
 
-        <p class="text-lg text-gray-600 leading-relaxed">
-          Chúc bạn tuổi mới có thật nhiều niềm vui, nhiều khoảnh khắc đáng nhớ và luôn có những
-          người thật lòng ở bên cạnh mình.
-        </p>
-      }
-
-      <!-- ========================= -->
-      <!-- TRANG 3 -->
-      <!-- ========================= -->
-
-      @if (currentPage === 2) {
-        <div class="text-6xl mb-6">✨</div>
-
-        <h2 class="text-3xl font-bold text-pink-600 mb-6">Mong rằng...</h2>
-
-        <p class="text-lg text-gray-600 leading-relaxed">
-          Những điều bạn đang mong chờ rồi sẽ từ từ xuất hiện. Những điều khiến bạn buồn sẽ nhẹ
-          nhàng đi qua.
-        </p>
-      }
-
-      <!-- ========================= -->
-      <!-- TRANG 4 -->
-      <!-- ========================= -->
-
-      @if (currentPage === 3) {
-        <div class="text-7xl mb-6">❤️</div>
-
-        <h2 class="text-3xl font-bold text-pink-600 mb-6">Và cuối cùng...</h2>
-
-        <p class="text-lg text-gray-600 leading-relaxed">
-          Mong bạn luôn được yêu thương, được trân trọng và được sống thật vui với những điều mình
-          lựa chọn.
-        </p>
-
-        <p class="mt-6 text-pink-500 font-semibold text-xl">Chúc mừng sinh nhật nhé! 🎂</p>
-      }
-
-      <!-- ========================= -->
-      <!-- TRANG 5 - ẢNH -->
-      <!-- ========================= -->
-
-      @if (currentPage === 4) {
-        <div class="text-6xl mb-6">📸</div>
-
-        <h2 class="text-3xl font-bold text-pink-600 mb-8">Một chút kỷ niệm</h2>
-
-        <div class="grid grid-cols-2 gap-4">
-          @for (image of images; track image) {
-            <img
-              [src]="image"
-              class="w-full aspect-square object-cover rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300"
-              alt="Kỷ niệm"
-            />
+        <div class="pointer-events-none absolute inset-0 overflow-hidden">
+          @for (heart of hearts; track $index) {
+            <span
+              class="absolute bottom-[-20px] opacity-0 animate-float-up"
+              [class.text-[#ef4444]]="$index % 3 === 0"
+              [class.text-[#38bdf8]]="$index % 3 !== 0"
+              [style.left.%]="($index * 53) % 100"
+              [style.animation-delay.s]="$index * 0.45"
+              [style.font-size.px]="12 + ($index % 4) * 4"
+            >
+              {{ $index % 3 === 0 ? '♥' : '✦' }}
+            </span>
           }
         </div>
 
-        <p class="mt-8 text-gray-500">
-          Có những khoảnh khắc nhỏ thôi, nhưng lại đáng nhớ thật lâu. ❤️
-        </p>
-      }
+        <!-- =================================================
+             CONTENT
+        ================================================== -->
 
-      <!-- ========================= -->
-      <!-- ĐIỀU HƯỚNG -->
-      <!-- ========================= -->
+        <main
+          class="relative z-10 flex h-full w-full flex-col items-center overflow-y-auto px-[15px] pb-[155px] pt-[80px] sm:px-5 md:px-10 md:pb-[175px] md:pt-[95px]"
+        >
+          <!-- =================================================
+               CARD CONTENT
+          ================================================== -->
 
-      <div class="flex justify-center gap-3 mt-10">
-        @if (currentPage > 0) {
-          <button
-            (click)="previousPage()"
-            class="px-5 py-3 rounded-full border border-pink-300 text-pink-500 hover:bg-pink-50 transition"
+          <div class="flex w-full flex-1 items-center justify-center">
+            <!-- =================================================
+                 PAGE 1
+            ================================================== -->
+
+            @if (currentPage === 0) {
+              <section
+                class="relative w-full max-w-[330px] rounded-[25px] border border-white/70 bg-white/70 p-[30px_21px] text-center shadow-[0_20px_50px_rgba(56,189,248,0.12)] backdrop-blur-[18px] animate-card-appear sm:max-w-[390px] sm:p-9 md:max-w-[520px] md:rounded-[34px] md:p-[50px_55px] lg:max-w-[600px]"
+              >
+                <!-- CAKE -->
+
+                <div
+                  class="birthday-reveal birthday-reveal-1 mx-auto mb-6 flex h-[85px] w-[85px] items-center justify-center rounded-full border border-[#38bdf8]/25 bg-[linear-gradient(135deg,rgba(56,189,248,0.15),rgba(34,197,94,0.12))]"
+                >
+                  <span class="text-[43px] animate-cake-float"> 🎂 </span>
+                </div>
+
+                <!-- TODAY IS YOUR DAY -->
+
+                <p
+                  class="birthday-reveal birthday-reveal-2 mb-[15px] text-[9px] font-bold tracking-[4px] text-[#159bd1]"
+                >
+                  HÔM NAY LÀ NGÀY CỦA EM
+                </p>
+
+                <!-- HAPPY BIRTHDAY -->
+
+                <h1
+                  class="birthday-reveal birthday-reveal-3 m-0 text-[37px] font-light leading-[1.05] tracking-[-1px] text-[#1e293b] sm:text-[42px] md:text-[54px]"
+                >
+                  HAPPY
+                  <br />
+
+                  <span class="font-bold text-[#1685c7]"> BIRTHDAY </span>
+                </h1>
+
+                <!-- LINE -->
+
+                <div
+                  class="birthday-reveal birthday-reveal-3 mx-auto my-6 h-[2px] w-10 bg-[linear-gradient(90deg,#38bdf8,#22c55e)]"
+                ></div>
+
+                <!-- MESSAGE -->
+
+                <p
+                  class="birthday-reveal birthday-reveal-4 m-0 text-[14px] leading-[1.8] text-[#475569] sm:text-[15px] md:text-base md:leading-[1.9]"
+                >
+                  Một ngày thật đặc biệt, <br />vì đó là ngày
+                  <b class="font-semibold text-[#1685c7]">một người đặc biệt với anh</b> được sinh
+                  ra trên thế giới này.
+                </p>
+
+                <!-- HEART -->
+
+                <div class="birthday-reveal-heart mt-6 text-[18px] text-[#22c55e]">♥</div>
+              </section>
+            }
+
+            <!-- =================================================
+                 PAGE 2
+            ================================================== -->
+
+            @if (currentPage === 1) {
+              <section
+                class="relative w-full max-w-[330px] rounded-[25px] border border-white/70 bg-white/70 p-[30px_21px] text-center shadow-[0_20px_50px_rgba(56,189,248,0.12)] backdrop-blur-[18px] animate-card-appear sm:max-w-[390px] sm:p-9 md:max-w-[520px] md:rounded-[34px] md:p-[50px_55px] lg:max-w-[600px]"
+              >
+                <div
+                  class="birthday-reveal birthday-reveal-1 mb-[15px] text-[42px] text-[#38bdf8] drop-shadow-[0_0_25px_rgba(56,189,248,0.4)]"
+                >
+                  ✦
+                </div>
+
+                <p
+                  class="birthday-reveal birthday-reveal-2 mb-[15px] text-[9px] font-bold tracking-[4px] text-[#159bd1]"
+                >
+                  MỘT LỜI CHÚC NHỎ
+                </p>
+
+                <h2
+                  class="birthday-reveal birthday-reveal-3 m-0 text-[34px] font-light leading-[1.05] tracking-[-1px] text-[#1e293b] md:text-[48px]"
+                >
+                  Anh
+                  <br />
+                  <span class="font-bold text-[#1685c7]"> mong em.. </span>
+                </h2>
+
+                <div
+                  class="birthday-reveal birthday-reveal-3 mx-auto my-6 h-[2px] w-10 bg-[linear-gradient(90deg,#38bdf8,#22c55e)]"
+                ></div>
+
+                <p
+                  class="birthday-reveal birthday-reveal-4 m-0 text-[14px] leading-[1.8] text-[#475569] sm:text-[15px] md:text-base md:leading-[1.9]"
+                >
+                  Tuổi mới thật nhiều niềm vui, học tập thuận lợi, công việc suôn sẻ và có thật
+                  nhiều điều đáng nhớ.
+                </p>
+
+                <div
+                  class="birthday-reveal-heart mt-7 font-serif text-[60px] leading-[0.5] text-[#38bdf8]/20"
+                >
+                  “
+                </div>
+              </section>
+            }
+
+            <!-- =================================================
+                 PAGE 3
+            ================================================== -->
+
+            @if (currentPage === 2) {
+              <section
+                class="relative w-full max-w-[330px] rounded-[25px] border border-white/70 bg-white/70 p-[30px_21px] text-center shadow-[0_20px_50px_rgba(56,189,248,0.12)] backdrop-blur-[18px] animate-card-appear sm:max-w-[390px] sm:p-9 md:max-w-[520px] md:rounded-[34px] md:p-[50px_55px] lg:max-w-[600px]"
+              >
+                <div class="birthday-reveal birthday-reveal-1 mb-[15px] text-[42px] text-[#38bdf8]">
+                  ✧
+                </div>
+
+                <p
+                  class="birthday-reveal birthday-reveal-2 mb-[15px] text-[9px] font-bold tracking-[4px] text-[#159bd1]"
+                >
+                  MỘT ĐIỀU ANH MUỐN NÓI
+                </p>
+
+                <h2
+                  class="birthday-reveal birthday-reveal-3 m-0 text-[34px] font-light leading-[1.05] tracking-[-1px] text-[#1e293b] md:text-[48px]"
+                >
+                  Sẽ
+                  <br />
+                  <span class="font-bold text-[#1685c7]"> ổn thôi.. </span>
+                </h2>
+
+                <div
+                  class="birthday-reveal birthday-reveal-3 mx-auto my-6 h-[2px] w-10 bg-[linear-gradient(90deg,#38bdf8,#22c55e)]"
+                ></div>
+
+                <p
+                  class="birthday-reveal birthday-reveal-4 m-0 text-[14px] leading-[1.8] text-[#475569] sm:text-[15px] md:text-base md:leading-[1.9]"
+                >
+                  Những điều em đang mong chờ rồi sẽ từ từ đến. Những điều khiến em buồn cũng sẽ nhẹ
+                  nhàng qua đi.
+                </p>
+
+                <div
+                  class="birthday-reveal birthday-reveal-4 mt-7 flex items-center justify-center gap-2.5 rounded-[15px] border border-[#22c55e]/20 bg-[#22c55e]/[0.08] p-[13px]"
+                >
+                  <span class="text-[#22c55e]">✦</span>
+
+                  <p class="m-0 text-[11px] tracking-[1px] text-[#166534]">Mọi chuyện rồi sẽ ổn.</p>
+
+                  <span class="text-[#22c55e]">✦</span>
+                </div>
+              </section>
+            }
+
+            <!-- =================================================
+                 PAGE 4
+            ================================================== -->
+
+            @if (currentPage === 3) {
+              <section
+                class="relative w-full max-w-[330px] rounded-[25px] border border-white/70 bg-white/70 p-[30px_21px] text-center shadow-[0_20px_50px_rgba(56,189,248,0.12)] backdrop-blur-[18px] animate-card-appear sm:max-w-[390px] sm:p-9 md:max-w-[520px] md:rounded-[34px] md:p-[50px_55px] lg:max-w-[600px]"
+              >
+                <div
+                  class="birthday-reveal birthday-reveal-1 mb-[15px] text-[42px] text-[#22c55e] drop-shadow-[0_0_25px_rgba(34,197,94,0.4)]"
+                >
+                  ♥
+                </div>
+
+                <p
+                  class="birthday-reveal birthday-reveal-2 mb-[15px] text-[9px] font-bold tracking-[4px] text-[#159bd1]"
+                >
+                  VÀ CUỐI CÙNG
+                </p>
+
+                <h2
+                  class="birthday-reveal birthday-reveal-3 m-0 text-[34px] font-light leading-[1.05] tracking-[-1px] text-[#1e293b] md:text-[48px]"
+                >
+                  Về
+                  <br />
+                  <span class="font-bold text-[#1685c7]"> chúng mình.. </span>
+                </h2>
+
+                <div
+                  class="birthday-reveal birthday-reveal-3 mx-auto my-6 h-[2px] w-10 bg-[linear-gradient(90deg,#38bdf8,#22c55e)]"
+                ></div>
+
+                <p
+                  class="birthday-reveal birthday-reveal-4 m-0 text-[14px] leading-[1.8] text-[#475569] sm:text-[15px] md:text-base md:leading-[1.9]"
+                >
+                  Anh không biết sau này mọi thứ sẽ thế nào, nhưng hiện tại,
+                  <b class="font-semibold text-[#1685c7]">anh thật sự rất trân trọng em</b>. Anh
+                  mong rằng, mình sẽ còn có thật nhiều ngày sinh nhật cùng nhau.
+                </p>
+
+                <div
+                  class="birthday-reveal-heart mt-7 flex items-center justify-center gap-3 text-[#1e293b]"
+                >
+                  <span class="text-[#22c55e]">♡</span>
+
+                  <strong class="text-sm font-semibold"> Chúc mừng sinh nhật em. </strong>
+
+                  <span class="text-[#22c55e]">♡</span>
+                </div>
+              </section>
+            }
+
+            <!-- =================================================
+                 PAGE 5 - ALBUM
+            ================================================== -->
+
+            @if (currentPage === 4) {
+              <section
+                class="relative w-full max-w-[330px] rounded-[25px] border border-white/70 bg-white/70 p-[30px_21px] text-center shadow-[0_20px_50px_rgba(56,189,248,0.12)] backdrop-blur-[18px] animate-card-appear sm:max-w-[390px] sm:p-9 md:max-w-[650px] md:rounded-[34px] md:p-[50px_55px] xl:max-w-[760px]"
+              >
+                <p
+                  class="birthday-reveal birthday-reveal-1 mb-[15px] text-[9px] font-bold tracking-[4px] text-[#159bd1]"
+                >
+                  MỘT CHÚT KỶ NIỆM
+                </p>
+
+                <h2
+                  class="birthday-reveal birthday-reveal-2 m-0 text-[34px] font-light leading-[1.05] tracking-[-1px] text-[#1e293b] md:text-[48px]"
+                >
+                  Những khoảnh khắc
+                  <br />
+                  <span class="font-bold text-[#1685c7]"> của chúng mình.. </span>
+                </h2>
+
+                <div
+                  class="birthday-reveal birthday-reveal-3 mx-auto my-6 h-[2px] w-10 bg-[linear-gradient(90deg,#38bdf8,#22c55e)]"
+                ></div>
+
+                <!-- ALBUM -->
+
+                <div
+                  class="birthday-reveal birthday-reveal-4 mt-6 grid grid-cols-2 gap-2 lg:grid-cols-4 lg:gap-3"
+                >
+                  @for (memory of memories.slice(0, 4); track memory.image; let i = $index) {
+                    <button
+                      type="button"
+                      class="group relative aspect-square overflow-hidden rounded-[15px] bg-[#e2e8f0] text-left lg:rounded-[17px]"
+                      (click)="openMemory(memory)"
+                    >
+                      <img
+                        [src]="memory.image"
+                        [alt]="memory.title"
+                        class="block h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+
+                      <!-- ICON TIM -->
+                      <div
+                        class="absolute bottom-2 right-2 flex h-[28px] w-[28px] items-center justify-center rounded-full bg-white/80 text-sm text-[#ef4444] shadow-[0_3px_10px_rgba(0,0,0,0.12)] backdrop-blur-[5px]"
+                      >
+                        ♥
+                      </div>
+
+                      <!-- SỐ ẢNH CÒN LẠI -->
+                      @if (i === 3 && memories.length > 4) {
+                        <div
+                          class="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-[2px]"
+                        >
+                          <span class="text-[20px] font-semibold text-white">
+                            +{{ memories.length - 4 }}
+                          </span>
+                        </div>
+                      }
+
+                      <!-- HOVER -->
+                      <div
+                        class="absolute inset-0 flex items-end bg-gradient-to-t from-black/45 via-transparent to-transparent p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                      >
+                        <span class="text-[11px] font-medium text-white"> Xem kỷ niệm </span>
+                      </div>
+                    </button>
+                  }
+                </div>
+
+                <p
+                  class="birthday-reveal birthday-reveal-4 mx-[5px] mt-6 text-[13px] leading-[1.7] text-[#64748b]"
+                >
+                  Có những khoảnh khắc rất bình thường, nhưng khi nhìn lại, lại thấy thật đáng nhớ.
+                </p>
+
+                <div
+                  class="birthday-reveal birthday-reveal-4 mt-[18px] items-center justify-center text-[20px] text-[#22c55e] animate-heartbeat"
+                >
+                  ♥
+                </div>
+
+                <div
+                  class="birthday-reveal birthday-reveal-4 mt-[5px] items-center justify-center text-[12px] text-[#94a3b8]"
+                >
+                  Chạm vào ảnh, cùng anh nhớ lại những kỷ niệm.
+                </div>
+              </section>
+            }
+
+            @if (selectedMemory) {
+              <div
+                class="fixed inset-0 z-[100] flex items-center justify-center bg-black/55 p-4 backdrop-blur-sm"
+                (click)="closeMemory()"
+              >
+                <div
+                  class="relative flex h-[90dvh] w-full max-w-[440px] flex-col overflow-hidden rounded-[28px] bg-white shadow-2xl animate-card-appear"
+                  (click)="$event.stopPropagation()"
+                >
+                  <!-- NÚT ĐÓNG -->
+
+                  <button
+                    type="button"
+                    class="absolute right-3 top-3 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-black/45 text-lg text-white backdrop-blur-md transition-transform hover:scale-110"
+                    (click)="closeMemory()"
+                    aria-label="Đóng"
+                  >
+                    ×
+                  </button>
+
+                  <!-- ẢNH -->
+
+                  <div class="relative h-[60dvh] aspect-square w-full shrink-0 bg-[#e2e8f0]">
+                    <img
+                      [src]="selectedMemory.image"
+                      [alt]="selectedMemory.title"
+                      class="h-full w-full object-cover"
+                    />
+
+                    <!-- PREVIOUS -->
+
+                    @if (selectedMemoryIndex > 0) {
+                      <button
+                        type="button"
+                        class="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/70 text-lg text-[#1e293b] shadow-lg backdrop-blur-md transition-all hover:scale-110 hover:bg-white"
+                        (click)="previousMemory()"
+                        aria-label="Ảnh trước"
+                      >
+                        ‹
+                      </button>
+                    }
+
+                    <!-- NEXT -->
+
+                    @if (selectedMemoryIndex < memories.length - 1) {
+                      <button
+                        type="button"
+                        class="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/70 text-lg text-[#1e293b] shadow-lg backdrop-blur-md transition-all hover:scale-110 hover:bg-white"
+                        (click)="nextMemory()"
+                        aria-label="Ảnh tiếp theo"
+                      >
+                        ›
+                      </button>
+                    }
+
+                    <!-- SỐ ẢNH -->
+
+                    <!-- <div
+                      class="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-black/45 px-3 py-1 text-[10px] tracking-[1px] text-white backdrop-blur-md"
+                    >
+                      {{ selectedMemoryIndex + 1 }} / {{ memories.length }}
+                    </div> -->
+                  </div>
+
+                  <!-- NỘI DUNG -->
+                  <div class="min-h-0 flex-1 overflow-y-auto px-6 py-7 text-center">
+                    <!-- HEART -->
+                    <!-- HEART -->
+                    <div class="mb-3 flex h-[22px] items-center justify-center">
+                      <span class="text-[17px] leading-none text-[#ef4444] animate-heartbeat">
+                        ♥
+                      </span>
+                    </div>
+
+                    <!-- TITLE -->
+                    <h3
+                      class="m-0 text-[22px] font-bold leading-tight tracking-[-0.3px] text-[#1e293b]"
+                    >
+                      {{ selectedMemory.title }}
+                    </h3>
+
+                    <div
+                      class="mx-auto my-4 h-[2px] w-8 bg-[linear-gradient(90deg,#38bdf8,#22c55e)]"
+                    ></div>
+
+                    <!-- NOTE -->
+                    <p class="mx-auto m-0 max-w-[360px] text-[13px] leading-[1.75] text-[#64748b]">
+                      {{ selectedMemory.note }}
+                    </p>
+
+                    <!-- DATE -->
+                    <div
+                      class="mt-5 flex items-center justify-center gap-2 text-[11px] tracking-[0.5px] text-[#94a3b8]"
+                    >
+                      <span class="h-px w-5 bg-[#e2e8f0]"></span>
+
+                      <span>
+                        {{ selectedMemory.date }}
+                      </span>
+
+                      <span class="h-px w-5 bg-[#e2e8f0]"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+
+          <!-- =================================================
+               PAGE NUMBER + PROGRESS
+          ================================================== -->
+
+          <div class="w-full max-w-[330px] sm:max-w-[390px] md:max-w-[520px] lg:max-w-[600px]">
+            <!-- PAGE NUMBER -->
+
+            <div class="mb-3 text-center text-[11px] tracking-[2px] text-[#64748b]">
+              <span class="font-semibold text-[#1e293b]">
+                {{ currentPage + 1 }}
+              </span>
+
+              <span class="mx-[5px] text-[#94a3b8]"> / </span>
+
+              {{ totalPages }}
+            </div>
+
+            <!-- PROGRESS -->
+
+            <div class="flex w-full gap-1.5">
+              @for (page of hearts; track $index) {
+                @if ($index < totalPages) {
+                  <div class="h-[3px] flex-1 overflow-hidden rounded-full bg-[#1e293b]/10">
+                    <div
+                      class="h-full rounded-full bg-[linear-gradient(90deg,#38bdf8,#22c55e)] transition-all duration-700"
+                      [class.w-0]="$index > currentPage"
+                      [class.w-full]="$index <= currentPage"
+                    ></div>
+                  </div>
+                }
+              }
+            </div>
+          </div>
+        </main>
+
+        <!-- =================================================
+            NAVIGATION
+            
+            ẨN KHI ĐANG XEM ẢNH
+        ================================================== -->
+
+        @if (!selectedMemory) {
+          <div
+            class="absolute bottom-[15px] left-1/2 z-30 flex w-[calc(100%-30px)] max-w-[330px] -translate-x-1/2 items-center justify-between sm:max-w-[390px] md:bottom-[25px] md:max-w-[520px] lg:max-w-[600px]"
           >
-            ←
-          </button>
-        }
+            <!-- PREVIOUS -->
 
-        @if (currentPage < 4) {
-          <button
-            (click)="nextPage()"
-            class="px-7 py-3 rounded-full bg-pink-500 text-white shadow-lg hover:bg-pink-600 hover:scale-105 transition"
-          >
-            Đọc tiếp → 💌
-          </button>
+            @if (currentPage > 0) {
+              <button
+                type="button"
+                class="flex h-[43px] items-center gap-2 rounded-full border border-[#1e293b]/10 bg-white/80 px-[16px] text-[13px] text-[#1e293b] shadow-[0_5px_20px_rgba(0,0,0,0.06)] backdrop-blur-[10px] transition-all hover:-translate-x-0.5 hover:bg-white"
+                (click)="previousPage()"
+              >
+                <span> ← </span>
+                <span> Quay lại </span>
+              </button>
+            } @else {
+              <div class="h-[43px] min-w-[100px]"></div>
+            }
+
+            <!-- NEXT -->
+
+            @if (currentPage < totalPages - 1) {
+              <button
+                type="button"
+                class="flex h-[43px] items-center gap-2 rounded-full bg-[linear-gradient(90deg,#38bdf8,#22c55e)] px-[18px] text-[13px] font-medium text-white shadow-[0_8px_20px_rgba(34,197,94,0.15)] transition-all hover:translate-x-0.5 hover:shadow-[0_10px_25px_rgba(34,197,94,0.22)]"
+                (click)="nextPage()"
+              >
+                <span> Tiếp tục </span>
+                <span> → </span>
+              </button>
+            }
+
+            <!-- RESTART -->
+
+            @if (currentPage === totalPages - 1) {
+              <button
+                type="button"
+                class="flex h-[43px] items-center gap-2 rounded-full bg-[linear-gradient(90deg,#38bdf8,#22c55e)] px-[18px] text-[13px] font-medium text-white shadow-[0_8px_20px_rgba(34,197,94,0.15)] transition-all hover:translate-x-0.5"
+                (click)="restart()"
+              >
+                <span> Đọc lại </span>
+                <span> ↻ </span>
+              </button>
+            }
+          </div>
         }
       </div>
     </div>
-  </div>
-}
+  }
+</div>

@@ -1,6 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-
-import { images } from '../images';
+import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { Memory, memories } from '../images';
 
 @Component({
   selector: 'app-birthday',
@@ -9,10 +8,6 @@ import { images } from '../images';
   styleUrl: './birthday.css',
 })
 export class Birthday {
-  // =========================
-  // NHẠC
-  // =========================
-
   @ViewChild('backgroundMusic')
   backgroundMusic!: ElementRef<HTMLAudioElement>;
 
@@ -21,85 +16,142 @@ export class Birthday {
   // =========================
 
   isOpened = false;
-
+  isOpening = false;
   isCelebrating = false;
-
   isMusicPlaying = false;
 
   // =========================
   // HIỆU ỨNG
   // =========================
 
-  hearts = Array.from({ length: 20 });
+  hearts = Array.from({ length: 18 });
 
   // =========================
-  // TRANG HIỆN TẠI
+  // TRANG
   // =========================
 
   currentPage = 0;
+  totalPages = 5;
 
   // =========================
-  // DANH SÁCH ẢNH
+  // ẢNH
   // =========================
 
-  images = images;
+  memories = memories;
+
+  selectedMemory: Memory | null = null;
+  selectedMemoryIndex = 0;
+
+  openMemory(memory: Memory): void {
+    this.selectedMemoryIndex = this.memories.findIndex((item) => item.image === memory.image);
+
+    this.selectedMemory = memory;
+  }
+
+  closeMemory(): void {
+    this.selectedMemory = null;
+  }
+
+  previousMemory(): void {
+    if (this.selectedMemoryIndex > 0) {
+      this.selectedMemoryIndex--;
+
+      this.selectedMemory = this.memories[this.selectedMemoryIndex];
+    }
+  }
+
+  nextMemory(): void {
+    if (this.selectedMemoryIndex < this.memories.length - 1) {
+      this.selectedMemoryIndex++;
+
+      this.selectedMemory = this.memories[this.selectedMemoryIndex];
+    }
+  }
 
   // =========================
   // MỞ QUÀ
   // =========================
 
   openGift(): void {
-    this.isCelebrating = true;
+    // Không cho click lại trong lúc đang mở hoặc đã mở
+    if (this.isOpening || this.isOpened) {
+      return;
+    }
+
+    this.isOpening = true;
+
+    // =========================
+    // 🎵 NHẠC CHẠY NGAY
+    // =========================
 
     const music = this.backgroundMusic.nativeElement;
 
     music.volume = 0.4;
 
-    music
-      .play()
-      .then(() => {
-        this.isMusicPlaying = true;
-      })
-      .catch((error) => {
-        console.log('Không thể phát nhạc:', error);
-      });
+    music.play().catch((error) => {
+      console.log('Không thể phát nhạc:', error);
+    });
+
+    // =========================
+    // ✨ FLASH
+    // =========================
+
+    setTimeout(() => {
+      this.isCelebrating = true;
+    }, 1800);
+
+    setTimeout(() => {
+      this.isCelebrating = false;
+    }, 2400);
+
+    // =========================
+    // 🎁 HỘP QUÀ MỞ XONG
+    // → CHUYỂN PAGE 1 NGAY
+    // =========================
 
     setTimeout(() => {
       this.isOpened = true;
-
-      this.isCelebrating = false;
-    }, 1200);
+      this.currentPage = 0;
+      this.cdr.detectChanges();
+    }, 1500);
   }
 
   // =========================
-  // BẬT / TẮT NHẠC
+  // NHẠC
   // =========================
+
+  ngAfterViewInit(): void {
+    const music = this.backgroundMusic.nativeElement;
+
+    music.addEventListener('play', () => {
+      this.isMusicPlaying = true;
+      this.cdr.detectChanges();
+    });
+
+    music.addEventListener('pause', () => {
+      this.isMusicPlaying = false;
+      this.cdr.detectChanges();
+    });
+  }
 
   toggleMusic(): void {
     const music = this.backgroundMusic.nativeElement;
 
-    if (this.isMusicPlaying) {
-      music.pause();
-
-      this.isMusicPlaying = false;
+    if (music.paused) {
+      music.play().catch((error) => {
+        console.log('Không thể phát nhạc:', error);
+      });
     } else {
-      music
-        .play()
-        .then(() => {
-          this.isMusicPlaying = true;
-        })
-        .catch((error) => {
-          console.log('Không thể phát nhạc:', error);
-        });
+      music.pause();
     }
   }
 
   // =========================
-  // TRANG TIẾP THEO
+  // TRANG TIẾP
   // =========================
 
   nextPage(): void {
-    if (this.currentPage < 4) {
+    if (this.currentPage < this.totalPages - 1) {
       this.currentPage++;
     }
   }
@@ -113,4 +165,14 @@ export class Birthday {
       this.currentPage--;
     }
   }
+
+  // =========================
+  // VỀ ĐẦU
+  // =========================
+
+  restart(): void {
+    this.currentPage = 0;
+  }
+
+  constructor(private cdr: ChangeDetectorRef) {}
 }
