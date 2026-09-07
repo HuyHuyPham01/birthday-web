@@ -42,14 +42,21 @@ export class Birthday {
   selectedMemory: Memory | null = null;
   selectedMemoryIndex = 0;
 
+  memorySlideDirection: 'next' | 'previous' = 'next';
+  memoryImageAnimating = false;
+
   openMemory(memory: Memory): void {
     this.selectedMemoryIndex = this.memories.findIndex((item) => item.image === memory.image);
 
     this.selectedMemory = memory;
+
+    this.lockBodyScroll();
   }
 
   closeMemory(): void {
     this.selectedMemory = null;
+
+    this.unlockBodyScroll();
   }
 
   previousMemory(): void {
@@ -66,6 +73,14 @@ export class Birthday {
 
       this.selectedMemory = this.memories[this.selectedMemoryIndex];
     }
+  }
+
+  private lockBodyScroll(): void {
+    document.body.style.overflow = 'hidden';
+  }
+
+  private unlockBodyScroll(): void {
+    document.body.style.overflow = '';
   }
 
   // =========================

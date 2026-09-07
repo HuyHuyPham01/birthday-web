@@ -1,61 +1,37 @@
-<!-- =====================================================
-     NHẠC
-===================================================== -->
-
+<!-- Nhạc -->
 <audio #backgroundMusic src="music/birthday.mp3" loop></audio>
 
-<!-- =====================================================
-     KHUNG WEBSITE
-===================================================== -->
-
+<!-- Khung website -->
 <div class="relative h-dvh w-full overflow-hidden bg-[#eaf8ff] text-[#1e293b]">
-  <!-- ===================================================
-       FLASH KHI MỞ QUÀ
-  ==================================================== -->
-
+  <!-- Flash khi mở quà -->
   @if (isCelebrating) {
-    <div class="fixed inset-0 z-[100] pointer-events-none bg-white animate-celebration-flash"></div>
+    <div class="fixed inset-0 z-100 pointer-events-none bg-white animate-celebration-flash"></div>
   }
 
-  <!-- ===================================================
-       MÀN HÌNH MỞ QUÀ
-
-       QUAN TRỌNG:
-       Chỉ tồn tại khi CHƯA mở quà.
-  ==================================================== -->
-
+  <!-- Màn hình mở quà (tồn tại khi chưa mở quà) -->
   @if (!isOpened) {
     <div class="absolute inset-0 z-20">
       <div
         class="gift-intro-background relative flex h-full w-full items-center justify-center overflow-hidden bg-[#eaf8ff] bg-[radial-gradient(circle_at_20%_20%,rgba(56,189,248,0.25),transparent_35%),radial-gradient(circle_at_80%_75%,rgba(34,197,94,0.18),transparent_35%)]"
       >
-        <!-- =================================================
-             BACKGROUND GLOW
-        ================================================== -->
-
+        <!-- Background Glow -->
         <div
           class="pointer-events-none absolute -left-16 top-[5%] h-[220px] w-[220px] rounded-full bg-[#38bdf8] opacity-30 blur-[80px]"
         ></div>
-
         <div
           class="pointer-events-none absolute -right-16 bottom-[5%] h-[220px] w-[220px] rounded-full bg-[#22c55e] opacity-25 blur-[80px]"
         ></div>
 
-        <!-- =================================================
-             GIFT CONTENT
-        ================================================== -->
-
+        <!-- Gift content -->
         <div class="relative z-10 w-full max-w-[650px] px-5 text-center sm:px-8">
-          <!-- LABEL -->
-
+          <!-- Label -->
           <p
             class="gift-intro gift-intro-label mb-5 text-[12px] font-bold tracking-[5px] text-[#159bd1]"
           >
             MỘT BẤT NGỜ NHỎ
           </p>
 
-          <!-- TITLE -->
-
+          <!-- Title -->
           <h1
             class="m-0 text-[34px] font-light leading-[1.25] tracking-[-1px] text-[#1e293b] sm:text-[42px] md:text-[54px]"
           >
@@ -69,45 +45,36 @@
 
             <br />
 
-            <span class="gift-title-line gift-title-line-3"> dành cho bạn. </span>
+            <span class="gift-title-line gift-title-line-3"> dành cho em. </span>
           </h1>
 
-          <!-- =================================================
-               HỘP QUÀ
-          ================================================== -->
-
+          <!-- Hộp quà -->
           <button
             type="button"
-            class="gift-box-intro group relative mx-auto mt-12 mb-11 block h-[230px] w-[220px] cursor-pointer border-0 bg-transparent outline-none touch-manipulation md:mt-[75px]"
+            class="gift-box-intro group relative mx-auto mt-8 mb-8 block h-[210px] w-[205px] cursor-pointer border-0 bg-transparent outline-none touch-manipulation sm:mt-12 sm:mb-10 sm:h-[230px] sm:w-[220px] md:mt-[65px]"
             (click)="openGift()"
             aria-label="Mở món quà"
           >
-            <!-- GLOW -->
-
+            <!-- Glow -->
             <div
               class="gift-box-glow pointer-events-none absolute left-1/2 top-[80px] h-[150px] w-[150px] -translate-x-1/2 rounded-full bg-[#86efac]/30 blur-[45px]"
             ></div>
 
-            <!-- SHADOW -->
-
+            <!-- Shadow -->
             <div
               class="absolute bottom-0 left-1/2 h-[25px] w-[170px] -translate-x-1/2 rounded-[50%] bg-black/25 blur-[12px] transition-all duration-700"
               [class.scale-75]="isOpening"
               [class.opacity-50]="isOpening"
             ></div>
 
-            <!-- ÁNH SÁNG TRONG HỘP -->
-
+            <!-- Ánh sáng trong hộp -->
             <div
               class="absolute left-1/2 top-[72px] z-[3] h-[100px] w-[120px] -translate-x-1/2 scale-50 rounded-full bg-[#86efac] opacity-0 blur-[30px] transition-all duration-[2500ms] ease-out"
               [class.scale-150]="isOpening"
               [class.opacity-80]="isOpening"
             ></div>
 
-            <!-- =================================================
-                 NƠ
-            ================================================== -->
-
+            <!-- Nơ -->
             <div
               class="gift-bow absolute left-1/2 top-[15px] z-10 h-[55px] w-[90px] -translate-x-1/2 transition-all duration-[2500ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
               [class.-translate-y-10]="isOpening"
@@ -115,28 +82,22 @@
               [class.scale-110]="isOpening"
             >
               <!-- Bow left -->
-
               <div
                 class="absolute left-0 top-[10px] h-[35px] w-[48px] rotate-[-18deg] rounded-[50%_15%_50%_50%] border-[7px] border-[#22c55e] bg-[#22c55e]/10 shadow-[0_0_15px_rgba(34,197,94,0.2)]"
               ></div>
 
               <!-- Bow right -->
-
               <div
                 class="absolute right-0 top-[10px] h-[35px] w-[48px] rotate-[18deg] rounded-[15%_50%_50%_50%] border-[7px] border-[#22c55e] bg-[#22c55e]/10 shadow-[0_0_15px_rgba(34,197,94,0.2)]"
               ></div>
 
               <!-- Bow center -->
-
               <div
                 class="absolute left-1/2 top-[18px] h-[22px] w-[22px] -translate-x-1/2 rounded-full bg-[#22c55e] shadow-[0_0_18px_rgba(34,197,94,0.65)]"
               ></div>
             </div>
 
-            <!-- =================================================
-                 NẮP HỘP
-            ================================================== -->
-
+            <!-- Nắp hộp -->
             <div
               class="gift-lid absolute left-1/2 top-[50px] z-[4] h-[42px] w-[175px] -translate-x-1/2 rounded-[9px] bg-[linear-gradient(135deg,#7dd3fc,#2495d1)] shadow-[0_10px_20px_rgba(0,0,0,0.25)] transition-all duration-[2500ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
               [class.-translate-y-10]="isOpening"
@@ -148,39 +109,31 @@
               ></div>
             </div>
 
-            <!-- =================================================
-                 BOX
-            ================================================== -->
-
+            <!-- Hộp -->
             <div
               class="gift-body absolute bottom-[15px] left-1/2 h-[130px] w-[150px] -translate-x-1/2 overflow-hidden rounded-[8px_8px_18px_18px] bg-[linear-gradient(135deg,#38bdf8,#1685c7)] shadow-[0_18px_35px_rgba(0,0,0,0.25)] transition-all duration-[2500ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
               [class.scale-105]="isOpening"
               [class.-translate-y-1]="isOpening"
             >
               <!-- Ribbon -->
-
               <div
                 class="absolute left-1/2 top-0 h-full w-[25px] -translate-x-1/2 bg-[linear-gradient(90deg,#86efac,#22c55e,#86efac)] shadow-[0_0_15px_rgba(34,197,94,0.3)]"
               ></div>
 
               <!-- Shine -->
-
               <div
                 class="absolute -left-[100px] top-0 h-full w-[70px] skew-x-[-20deg] bg-white/20 animate-gift-shine"
               ></div>
             </div>
           </button>
 
-          <!-- =================================================
-               TAP TO OPEN
-          ================================================== -->
-
+          <!-- Tap to open -->
           <div
             class="gift-intro gift-intro-tap flex flex-col items-center gap-[15px] transition-all duration-500"
             [class.opacity-0]="isOpening"
           >
             <div
-              class="h-[5px] w-[5px] rounded-full bg-[#22c55e] shadow-[0_0_12px_#22c55e] animate-pulse-dot"
+              class="mb-2 h-[5px] w-[5px] rounded-full bg-[#22c55e] shadow-[0_0_12px_#22c55e] animate-pulse-dot"
             ></div>
 
             <p class="m-0 text-[12px] tracking-[4px] text-[#64748b]">CHẠM ĐỂ MỞ</p>
@@ -192,53 +145,32 @@
     </div>
   }
 
-  <!-- ===================================================
-       STORY
-
-       QUAN TRỌNG:
-       Chỉ render SAU KHI isOpened = true.
-
-       Không còn:
-       - opacity-0
-       - opacity-100
-       - transition-all
-       - story-enter
-       - scale
-       - 2 màn hình chồng lên nhau
-  ==================================================== -->
-
+  <!-- Story (render sau khi mở quà) -->
   @if (isOpened) {
     <div class="story-visible absolute inset-0 z-30">
       <div
         class="relative h-full w-full overflow-hidden bg-[linear-gradient(155deg,#eaf8ff,#f7fdff_50%,#eafff5)]"
       >
-        <!-- =================================================
-             BACKGROUND
-        ================================================== -->
-
+        <!-- Background -->
         <div
           class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(56,189,248,0.18),transparent_30%),radial-gradient(circle_at_90%_80%,rgba(34,197,94,0.14),transparent_30%)]"
         ></div>
 
-        <!-- =================================================
-             MUSIC BUTTON
-        ================================================== -->
+        <!-- Music button -->
+        @if (!selectedMemory) {
+          <button
+            type="button"
+            class="absolute right-4 top-4 z-[11] flex h-[42px] w-[42px] items-center justify-center rounded-full border border-[#1e293b]/10 bg-white/80 text-[#1e293b] shadow-[0_5px_20px_rgba(0,0,0,0.08)] backdrop-blur-[10px] transition-transform hover:scale-110 md:right-8 md:top-6"
+            (click)="toggleMusic()"
+            aria-label="Bật hoặc tắt nhạc"
+          >
+            <span [class.music-playing]="isMusicPlaying">
+              {{ isMusicPlaying ? '🎵' : '🔇' }}
+            </span>
+          </button>
+        }
 
-        <button
-          type="button"
-          class="absolute right-4 top-4 z-40 flex h-[42px] w-[42px] items-center justify-center rounded-full border border-[#1e293b]/10 bg-white/80 text-[#1e293b] shadow-[0_5px_20px_rgba(0,0,0,0.08)] backdrop-blur-[10px] transition-transform hover:scale-110 md:right-8 md:top-6"
-          (click)="toggleMusic()"
-          aria-label="Bật hoặc tắt nhạc"
-        >
-          <span [class.music-playing]="isMusicPlaying">
-            {{ isMusicPlaying ? '🎵' : '🔇' }}
-          </span>
-        </button>
-
-        <!-- =================================================
-             FLOATING
-        ================================================== -->
-
+        <!-- Floating hearts -->
         <div class="pointer-events-none absolute inset-0 overflow-hidden">
           @for (heart of hearts; track $index) {
             <span
@@ -254,43 +186,28 @@
           }
         </div>
 
-        <!-- =================================================
-             CONTENT
-        ================================================== -->
-
+        <!-- Content -->
         <main
-          class="relative z-10 flex h-full w-full flex-col items-center overflow-y-auto px-[15px] pb-[155px] pt-[80px] sm:px-5 md:px-10 md:pb-[175px] md:pt-[95px]"
+          class="relative z-10 flex h-full w-full flex-col items-center overflow-y-auto p-[15px] sm:px-5 md:p-10"
         >
-          <!-- =================================================
-               CARD CONTENT
-          ================================================== -->
-
+          <!-- Card container -->
           <div class="flex w-full flex-1 items-center justify-center">
-            <!-- =================================================
-                 PAGE 1
-            ================================================== -->
-
+            <!-- Page 1 -->
             @if (currentPage === 0) {
               <section
-                class="relative w-full max-w-[330px] rounded-[25px] border border-white/70 bg-white/70 p-[30px_21px] text-center shadow-[0_20px_50px_rgba(56,189,248,0.12)] backdrop-blur-[18px] animate-card-appear sm:max-w-[390px] sm:p-9 md:max-w-[520px] md:rounded-[34px] md:p-[50px_55px] lg:max-w-[600px]"
+                class="relative w-full max-w-[330px] rounded-[25px] border border-white/70 bg-white/70 p-[30px_21px] text-center shadow-[0_20px_50px_rgba(56,189,248,0.12)] backdrop-blur-[18px] animate-card-appear sm:max-w-[390px] sm:p-9 md:max-w-[500px] md:rounded-[34px] md:p-[50px_55px] lg:max-w-[560px]"
               >
-                <!-- CAKE -->
-
                 <div
                   class="birthday-reveal birthday-reveal-1 mx-auto mb-6 flex h-[85px] w-[85px] items-center justify-center rounded-full border border-[#38bdf8]/25 bg-[linear-gradient(135deg,rgba(56,189,248,0.15),rgba(34,197,94,0.12))]"
                 >
                   <span class="text-[43px] animate-cake-float"> 🎂 </span>
                 </div>
 
-                <!-- TODAY IS YOUR DAY -->
-
                 <p
                   class="birthday-reveal birthday-reveal-2 mb-[15px] text-[9px] font-bold tracking-[4px] text-[#159bd1]"
                 >
                   HÔM NAY LÀ NGÀY CỦA EM
                 </p>
-
-                <!-- HAPPY BIRTHDAY -->
 
                 <h1
                   class="birthday-reveal birthday-reveal-3 m-0 text-[37px] font-light leading-[1.05] tracking-[-1px] text-[#1e293b] sm:text-[42px] md:text-[54px]"
@@ -301,13 +218,9 @@
                   <span class="font-bold text-[#1685c7]"> BIRTHDAY </span>
                 </h1>
 
-                <!-- LINE -->
-
                 <div
                   class="birthday-reveal birthday-reveal-3 mx-auto my-6 h-[2px] w-10 bg-[linear-gradient(90deg,#38bdf8,#22c55e)]"
                 ></div>
-
-                <!-- MESSAGE -->
 
                 <p
                   class="birthday-reveal birthday-reveal-4 m-0 text-[14px] leading-[1.8] text-[#475569] sm:text-[15px] md:text-base md:leading-[1.9]"
@@ -317,19 +230,14 @@
                   ra trên thế giới này.
                 </p>
 
-                <!-- HEART -->
-
                 <div class="birthday-reveal-heart mt-6 text-[18px] text-[#22c55e]">♥</div>
               </section>
             }
 
-            <!-- =================================================
-                 PAGE 2
-            ================================================== -->
-
+            <!-- Page 2 -->
             @if (currentPage === 1) {
               <section
-                class="relative w-full max-w-[330px] rounded-[25px] border border-white/70 bg-white/70 p-[30px_21px] text-center shadow-[0_20px_50px_rgba(56,189,248,0.12)] backdrop-blur-[18px] animate-card-appear sm:max-w-[390px] sm:p-9 md:max-w-[520px] md:rounded-[34px] md:p-[50px_55px] lg:max-w-[600px]"
+                class="relative w-full max-w-[330px] rounded-[25px] border border-white/70 bg-white/70 p-[30px_21px] text-center shadow-[0_20px_50px_rgba(56,189,248,0.12)] backdrop-blur-[18px] animate-card-appear sm:max-w-[390px] sm:p-9 md:max-w-[500px] md:rounded-[34px] md:p-[50px_55px] lg:max-w-[560px]"
               >
                 <div
                   class="birthday-reveal birthday-reveal-1 mb-[15px] text-[42px] text-[#38bdf8] drop-shadow-[0_0_25px_rgba(56,189,248,0.4)]"
@@ -370,13 +278,10 @@
               </section>
             }
 
-            <!-- =================================================
-                 PAGE 3
-            ================================================== -->
-
+            <!-- Page 3 -->
             @if (currentPage === 2) {
               <section
-                class="relative w-full max-w-[330px] rounded-[25px] border border-white/70 bg-white/70 p-[30px_21px] text-center shadow-[0_20px_50px_rgba(56,189,248,0.12)] backdrop-blur-[18px] animate-card-appear sm:max-w-[390px] sm:p-9 md:max-w-[520px] md:rounded-[34px] md:p-[50px_55px] lg:max-w-[600px]"
+                class="relative w-full max-w-[330px] rounded-[25px] border border-white/70 bg-white/70 p-[30px_21px] text-center shadow-[0_20px_50px_rgba(56,189,248,0.12)] backdrop-blur-[18px] animate-card-appear sm:max-w-[390px] sm:p-9 md:max-w-[500px] md:rounded-[34px] md:p-[50px_55px] lg:max-w-[560px]"
               >
                 <div class="birthday-reveal birthday-reveal-1 mb-[15px] text-[42px] text-[#38bdf8]">
                   ✧
@@ -419,13 +324,10 @@
               </section>
             }
 
-            <!-- =================================================
-                 PAGE 4
-            ================================================== -->
-
+            <!-- Page 4 -->
             @if (currentPage === 3) {
               <section
-                class="relative w-full max-w-[330px] rounded-[25px] border border-white/70 bg-white/70 p-[30px_21px] text-center shadow-[0_20px_50px_rgba(56,189,248,0.12)] backdrop-blur-[18px] animate-card-appear sm:max-w-[390px] sm:p-9 md:max-w-[520px] md:rounded-[34px] md:p-[50px_55px] lg:max-w-[600px]"
+                class="relative w-full max-w-[330px] rounded-[25px] border border-white/70 bg-white/70 p-[30px_21px] text-center shadow-[0_20px_50px_rgba(56,189,248,0.12)] backdrop-blur-[18px] animate-card-appear sm:max-w-[390px] sm:p-9 md:max-w-[500px] md:rounded-[34px] md:p-[50px_55px] lg:max-w-[560px]"
               >
                 <div
                   class="birthday-reveal birthday-reveal-1 mb-[15px] text-[42px] text-[#22c55e] drop-shadow-[0_0_25px_rgba(34,197,94,0.4)]"
@@ -471,13 +373,10 @@
               </section>
             }
 
-            <!-- =================================================
-                 PAGE 5 - ALBUM
-            ================================================== -->
-
+            <!-- Page 5 - ALBUM -->
             @if (currentPage === 4) {
               <section
-                class="relative w-full max-w-[330px] rounded-[25px] border border-white/70 bg-white/70 p-[30px_21px] text-center shadow-[0_20px_50px_rgba(56,189,248,0.12)] backdrop-blur-[18px] animate-card-appear sm:max-w-[390px] sm:p-9 md:max-w-[650px] md:rounded-[34px] md:p-[50px_55px] xl:max-w-[760px]"
+                class="relative w-full max-w-[330px] rounded-[25px] border border-white/70 bg-white/70 p-[30px_21px] text-center shadow-[0_20px_50px_rgba(56,189,248,0.12)] backdrop-blur-[18px] animate-card-appear sm:max-w-[390px] sm:p-9 md:max-w-[500px] md:rounded-[34px] md:p-[50px_55px] xl:max-w-[560px]"
               >
                 <p
                   class="birthday-reveal birthday-reveal-1 mb-[15px] text-[9px] font-bold tracking-[4px] text-[#159bd1]"
@@ -497,15 +396,16 @@
                   class="birthday-reveal birthday-reveal-3 mx-auto my-6 h-[2px] w-10 bg-[linear-gradient(90deg,#38bdf8,#22c55e)]"
                 ></div>
 
-                <!-- ALBUM -->
-
+                <!-- Album -->
                 <div
-                  class="birthday-reveal birthday-reveal-4 mt-6 grid grid-cols-2 gap-2 lg:grid-cols-4 lg:gap-3"
+                  class="birthday-reveal birthday-reveal-4 mt-6 grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-3"
                 >
                   @for (memory of memories.slice(0, 4); track memory.image; let i = $index) {
                     <button
                       type="button"
-                      class="group relative aspect-square overflow-hidden rounded-[15px] bg-[#e2e8f0] text-left lg:rounded-[17px]"
+                      class="group relative aspect-square overflow-hidden rounded-[15px] bg-[#e2e8f0] text-left md:rounded-[17px]"
+                      [class.hidden]="i >= 2"
+                      [class.md:block]="i >= 2"
                       (click)="openMemory(memory)"
                     >
                       <img
@@ -514,17 +414,27 @@
                         class="block h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
 
-                      <!-- ICON TIM -->
                       <div
                         class="absolute bottom-2 right-2 flex h-[28px] w-[28px] items-center justify-center rounded-full bg-white/80 text-sm text-[#ef4444] shadow-[0_3px_10px_rgba(0,0,0,0.12)] backdrop-blur-[5px]"
                       >
                         ♥
                       </div>
 
-                      <!-- SỐ ẢNH CÒN LẠI -->
+                      <!-- Overlay cho PHONE: ảnh thứ 2 -->
+                      @if (i === 1 && memories.length > 2) {
+                        <div
+                          class="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-[2px] md:hidden"
+                        >
+                          <span class="text-[20px] font-semibold text-white">
+                            +{{ memories.length - 2 }}
+                          </span>
+                        </div>
+                      }
+
+                      <!-- Overlay cho TABLET/DESKTOP: ảnh thứ 4 -->
                       @if (i === 3 && memories.length > 4) {
                         <div
-                          class="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-[2px]"
+                          class="absolute inset-0 hidden items-center justify-center bg-black/50 backdrop-blur-[2px] md:flex"
                         >
                           <span class="text-[20px] font-semibold text-white">
                             +{{ memories.length - 4 }}
@@ -532,7 +442,6 @@
                         </div>
                       }
 
-                      <!-- HOVER -->
                       <div
                         class="absolute inset-0 flex items-end bg-gradient-to-t from-black/45 via-transparent to-transparent p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                       >
@@ -562,17 +471,17 @@
               </section>
             }
 
+            <!-- Memory Modal -->
             @if (selectedMemory) {
               <div
-                class="fixed inset-0 z-[100] flex items-center justify-center bg-black/55 p-4 backdrop-blur-sm"
+                class="memory-modal-overlay fixed inset-0 z-[100] flex items-center justify-center overflow-hidden touch-none bg-black/55 backdrop-blur-sm"
                 (click)="closeMemory()"
               >
                 <div
-                  class="relative flex h-[90dvh] w-full max-w-[440px] flex-col overflow-hidden rounded-[28px] bg-white shadow-2xl animate-card-appear"
+                  class="memory-modal relative flex h-full w-full max-w-[440px] flex-col overflow-hidden bg-white shadow-2xl sm:h-[92dvh] sm:rounded-[24px]"
                   (click)="$event.stopPropagation()"
                 >
-                  <!-- NÚT ĐÓNG -->
-
+                  <!-- Close button -->
                   <button
                     type="button"
                     class="absolute right-3 top-3 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-black/45 text-lg text-white backdrop-blur-md transition-transform hover:scale-110"
@@ -582,17 +491,15 @@
                     ×
                   </button>
 
-                  <!-- ẢNH -->
-
-                  <div class="relative h-[60dvh] aspect-square w-full shrink-0 bg-[#e2e8f0]">
+                  <!-- Ảnh -->
+                  <div class="relative h-[60dvh] w-full shrink-0 bg-[#e2e8f0] sm:h-[60dvh]">
                     <img
                       [src]="selectedMemory.image"
                       [alt]="selectedMemory.title"
-                      class="h-full w-full object-cover"
+                      class="memory-modal-photo h-full w-full object-cover"
                     />
 
-                    <!-- PREVIOUS -->
-
+                    <!-- Previous -->
                     @if (selectedMemoryIndex > 0) {
                       <button
                         type="button"
@@ -604,8 +511,7 @@
                       </button>
                     }
 
-                    <!-- NEXT -->
-
+                    <!-- Next -->
                     @if (selectedMemoryIndex < memories.length - 1) {
                       <button
                         type="button"
@@ -617,44 +523,26 @@
                       </button>
                     }
 
-                    <!-- SỐ ẢNH -->
-
-                    <!-- <div
-                      class="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-black/45 px-3 py-1 text-[10px] tracking-[1px] text-white backdrop-blur-md"
+                    <!-- Số ảnh -->
+                    <div
+                      class="absolute bottom-4 right-4 rounded-full bg-black/45 px-3 py-1 text-[10px] tracking-[1px] text-white backdrop-blur-md"
                     >
                       {{ selectedMemoryIndex + 1 }} / {{ memories.length }}
-                    </div> -->
+                    </div>
                   </div>
 
-                  <!-- NỘI DUNG -->
+                  <!-- Nội dung -->
                   <div class="min-h-0 flex-1 overflow-y-auto px-6 py-7 text-center">
-                    <!-- HEART -->
-                    <!-- HEART -->
+                    <!-- Heart -->
                     <div class="mb-3 flex h-[22px] items-center justify-center">
                       <span class="text-[17px] leading-none text-[#ef4444] animate-heartbeat">
                         ♥
                       </span>
                     </div>
 
-                    <!-- TITLE -->
-                    <h3
-                      class="m-0 text-[22px] font-bold leading-tight tracking-[-0.3px] text-[#1e293b]"
-                    >
-                      {{ selectedMemory.title }}
-                    </h3>
-
+                    <!-- Date -->
                     <div
-                      class="mx-auto my-4 h-[2px] w-8 bg-[linear-gradient(90deg,#38bdf8,#22c55e)]"
-                    ></div>
-
-                    <!-- NOTE -->
-                    <p class="mx-auto m-0 max-w-[360px] text-[13px] leading-[1.75] text-[#64748b]">
-                      {{ selectedMemory.note }}
-                    </p>
-
-                    <!-- DATE -->
-                    <div
-                      class="mt-5 flex items-center justify-center gap-2 text-[11px] tracking-[0.5px] text-[#94a3b8]"
+                      class="mb-3 flex items-center justify-center gap-2 text-[11px] tracking-[0.5px] text-[#94a3b8]"
                     >
                       <span class="h-px w-5 bg-[#e2e8f0]"></span>
 
@@ -664,20 +552,33 @@
 
                       <span class="h-px w-5 bg-[#e2e8f0]"></span>
                     </div>
+
+                    <!-- Title -->
+                    <h3
+                      class="m-0 text-[22px] font-bold leading-tight tracking-[-0.3px] text-[#1e293b]"
+                    >
+                      {{ selectedMemory.title }}
+                    </h3>
+
+                    <!-- Line -->
+                    <div
+                      class="mx-auto my-4 h-[2px] w-8 bg-[linear-gradient(90deg,#38bdf8,#22c55e)]"
+                    ></div>
+
+                    <!-- Note -->
+                    <p class="mx-auto m-0 max-w-[360px] text-[13px] leading-[1.75] text-[#64748b]">
+                      {{ selectedMemory.note }}
+                    </p>
                   </div>
                 </div>
               </div>
             }
           </div>
 
-          <!-- =================================================
-               PAGE NUMBER + PROGRESS
-          ================================================== -->
-
-          <div class="w-full max-w-[330px] sm:max-w-[390px] md:max-w-[520px] lg:max-w-[600px]">
-            <!-- PAGE NUMBER -->
-
-            <div class="mb-3 text-center text-[11px] tracking-[2px] text-[#64748b]">
+          <!-- Progress -->
+          <!-- <div class="w-full max-w-[330px] sm:max-w-[390px] md:max-w-[520px] lg:max-w-[600px]"> -->
+          <!-- Page number -->
+          <!-- <div class="text-center text-[11px] tracking-[2px] text-[#64748b]">
               <span class="font-semibold text-[#1e293b]">
                 {{ currentPage + 1 }}
               </span>
@@ -685,11 +586,10 @@
               <span class="mx-[5px] text-[#94a3b8]"> / </span>
 
               {{ totalPages }}
-            </div>
+            </div> -->
 
-            <!-- PROGRESS -->
-
-            <div class="flex w-full gap-1.5">
+          <!-- Progress -->
+          <!-- <div class="flex px-8 w-full gap-1.5">
               @for (page of hearts; track $index) {
                 @if ($index < totalPages) {
                   <div class="h-[3px] flex-1 overflow-hidden rounded-full bg-[#1e293b]/10">
@@ -701,22 +601,15 @@
                   </div>
                 }
               }
-            </div>
-          </div>
+            </div> -->
+          <!-- </div> -->
         </main>
 
-        <!-- =================================================
-            NAVIGATION
-            
-            ẨN KHI ĐANG XEM ẢNH
-        ================================================== -->
-
+        <!-- Navigation -->
         @if (!selectedMemory) {
           <div
-            class="absolute bottom-[15px] left-1/2 z-30 flex w-[calc(100%-30px)] max-w-[330px] -translate-x-1/2 items-center justify-between sm:max-w-[390px] md:bottom-[25px] md:max-w-[520px] lg:max-w-[600px]"
+            class="absolute bottom-[max(15px,env(safe-area-inset-bottom))] left-1/2 z-30 flex w-[calc(100%-24px)] max-w-[330px] -translate-x-1/2 items-center justify-between sm:max-w-[390px] md:bottom-[25px] md:max-w-[520px] lg:max-w-[600px]"
           >
-            <!-- PREVIOUS -->
-
             @if (currentPage > 0) {
               <button
                 type="button"
@@ -730,7 +623,16 @@
               <div class="h-[43px] min-w-[100px]"></div>
             }
 
-            <!-- NEXT -->
+            <!-- Page number -->
+            <div class="text-center text-[11px] tracking-[2px] text-[#64748b]">
+              <span class="font-semibold text-[#1e293b]">
+                {{ currentPage + 1 }}
+              </span>
+
+              <span class="mx-[5px] text-[#94a3b8]"> / </span>
+
+              {{ totalPages }}
+            </div>
 
             @if (currentPage < totalPages - 1) {
               <button
@@ -743,8 +645,7 @@
               </button>
             }
 
-            <!-- RESTART -->
-
+            <!-- Restart -->
             @if (currentPage === totalPages - 1) {
               <button
                 type="button"
